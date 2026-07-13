@@ -1,0 +1,22 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "projectTitle": "Hermes XAPI",
+  "description": "Native Hermes Agent plugin for TwexAPI's X/Twitter API: search, read, publish, monitor, and automate X workflows through structured tools. Not affiliated with X Corp.",
+  "branch": "master",
+  "excludeFolders": [".github"],
+  "excludeFiles": [
+    "AGENTS.md",
+    "GITHUB_METADATA.md",
+    "PUBLICATION_CHECKLIST.md"
+  ],
+  "rules": [
+    "Use README.md and docs/CONTEXT7.md for install, configuration, tool usage, security model, and runtime smoke tests.",
+    "Use docs/OBSERVABILITY.md for scripted Hermes runtime checks.",
+    "Use github.com/twexapi-dev/hermes-xapi#readme for end-to-end Hermes setup.",
+    "Use xapi_explore before xapi_read or xapi_action; xapi_action is disabled unless explicitly enabled.",
+    "Use pyproject.toml and the PyPI package hermes-xapi for package metadata and supported Python versions.",
+    "Do not ask users to pass credentials through tool arguments; use environment configuration."
+  ],
+  "url": "https://context7.com/twexapi-dev/hermes-xapi",
+  "public_key": "pk_oCPeRRqZFJsY4cCUSotDD"
+}

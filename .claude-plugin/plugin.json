@@ -1,0 +1,21 @@
+{
+  "name": "hermes-xapi",
+  "version": "0.1.6",
+  "description": "Native Hermes Agent X/Twitter plugin for TwexAPI automation with read-first workflows and approval-gated actions.",
+  "author": {
+    "name": "TwexAPI",
+    "url": "https://github.com/twexapi-dev"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/twexapi-dev/hermes-xapi#readme",
+  "repository": "https://github.com/twexapi-dev/hermes-xapi",
+  "keywords": [
+    "hermes-agent",
+    "hermes-plugin",
+    "twexapi",
+    "twitter",
+    "x",
+    "social-media",
+    "automation"
+  ]
+}

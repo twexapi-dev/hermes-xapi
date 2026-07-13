@@ -1,0 +1,16 @@
+name: hermes-xapi
+version: 0.1.6
+description: "Native Hermes Agent plugin for X/Twitter automation through TwexAPI. Not affiliated with X Corp."
+author: TwexAPI
+requires_env:
+  - name: TWEXAPI_KEY
+    description: "TwexAPI API key. Create one in the TwexAPI dashboard."
+    url: "https://twexapi.io/dashboard"
+    secret: true
+optional_env:
+  - TWEXAPI_BASE_URL
+  - HERMES_XAPI_ENABLE_ACTIONS
+provides_tools:
+  - xapi_explore
+  - xapi_read
+  - xapi_action

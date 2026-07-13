@@ -1,0 +1,45 @@
+{
+  "name": "hermes-xapi",
+  "version": "0.1.6",
+  "description": "Native Hermes Agent X/Twitter plugin for TwexAPI automation with read-first workflows and approval-gated actions.",
+  "author": {
+    "name": "TwexAPI",
+    "url": "https://github.com/twexapi-dev"
+  },
+  "homepage": "https://github.com/twexapi-dev/hermes-xapi#readme",
+  "repository": "https://github.com/twexapi-dev/hermes-xapi",
+  "license": "MIT",
+  "keywords": [
+    "hermes-agent",
+    "hermes-plugin",
+    "twexapi",
+    "twitter",
+    "x",
+    "social-media",
+    "automation",
+    "codex-plugin"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Hermes XAPI",
+    "shortDescription": "Use Hermes Agent for X/Twitter research and gated actions.",
+    "longDescription": "Hermes XAPI gives Codex a source-native install surface for the Hermes Agent X/Twitter plugin. Use it to discover tweet and user read tools, summarize public X context, and keep account-changing actions behind explicit Hermes XAPI approval gates.",
+    "developerName": "TwexAPI",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/twexapi-dev/hermes-xapi#readme",
+    "privacyPolicyURL": "https://github.com/twexapi-dev/hermes-xapi/security/policy",
+    "termsOfServiceURL": "https://github.com/twexapi-dev/hermes-xapi/blob/master/LICENSE",
+    "defaultPrompt": [
+      "Use Hermes XAPI to research this X/Twitter topic.",
+      "Use Hermes XAPI to read public replies and summarize the thread.",
+      "Use Hermes XAPI to prepare an approval-gated X/Twitter action."
+    ],
+    "brandColor": "#111827",
+    "composerIcon": "./assets/icon.svg"
+  }
+}

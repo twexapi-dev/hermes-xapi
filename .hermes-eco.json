@@ -1,0 +1,28 @@
+{
+  "name": "Hermes XAPI",
+  "resource_type": "integration",
+  "type": "integration",
+  "primary_category": "communication",
+  "description": "Hermes Agent X/Twitter plugin for searching tweets, reading replies, monitoring X, exporting followers, and approval-gated posting through TwexAPI.",
+  "author": "TwexAPI",
+  "repository": "https://github.com/twexapi-dev/hermes-xapi",
+  "homepage": "https://github.com/twexapi-dev/hermes-xapi#readme",
+  "license": "MIT",
+  "complexity": "intermediate",
+  "deployment": "local",
+  "tags": [
+    "hermes-agent",
+    "hermes-plugin",
+    "twexapi",
+    "twitter",
+    "x",
+    "social-media",
+    "automation"
+  ],
+  "tools_used": [
+    "xapi_explore",
+    "xapi_read",
+    "xapi_action"
+  ],
+  "hermes_version": ">=1.0.0"
+}

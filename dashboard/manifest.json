@@ -1,0 +1,7 @@
+{
+  "name": "hermes-xapi",
+  "label": "Hermes XAPI",
+  "description": "Hermes Agent X/Twitter plugin for searching tweets, reading replies, monitoring X, exporting followers, and approval-gated posting through TwexAPI.",
+  "version": "0.1.6",
+  "slots": ["tools"]
+}

@@ -14,7 +14,7 @@
 [![Wheel](https://img.shields.io/pypi/wheel/hermes-xapi.svg)](https://pypi.org/project/hermes-xapi/#files)
 [![Downloads](https://img.shields.io/pypi/dm/hermes-xapi.svg)](https://pypi.org/project/hermes-xapi/)
 [![Release](https://img.shields.io/github/v/release/twexapi-dev/hermes-xapi?sort=semver)](https://github.com/twexapi-dev/hermes-xapi/releases)
-[![Apify Actor](https://apify.com/actor-badge?actor=twexapi/x-tweet-scraper)](https://apify.com/twexapi/x-tweet-scraper)
+[![Apify Actor](https://apify.com/fastcrawler/tweet-x-twitter-scraper-0-05-1k-pay-per-result-v2)](https://apify.com/fastcrawler/tweet-x-twitter-scraper-0-05-1k-pay-per-result-v2)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Native [Hermes Agent](https://github.com/NousResearch/hermes-agent) plugin for

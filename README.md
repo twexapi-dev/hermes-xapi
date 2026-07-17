@@ -8,13 +8,10 @@
 <a href="https://nothumansearch.ai/site/twexapi.com" target="_blank" rel="noopener"><img src="https://nothumansearch.ai/badge/twexapi.com.svg" alt="NHS Agentic Readiness Score" height="28"></a>
 [![Ask DeepWiki](https://deepwiki.com/badge.svg?url=https%3A%2F%2Fgithub.com%2Ftwexapi-dev%2Fhermes-xapi)](https://deepwiki.com/twexapi-dev/hermes-xapi)
 [![PyPI](https://img.shields.io/pypi/v/hermes-xapi.svg)](https://pypi.org/project/hermes-xapi/)
-[![piwheels](https://img.shields.io/piwheels/v/hermes-xapi.svg)](https://piwheels.org/project/hermes-xapi/)
 [![Python](https://img.shields.io/pypi/pyversions/hermes-xapi.svg)](https://pypi.org/project/hermes-xapi/)
 [![PyPI Status](https://img.shields.io/pypi/status/hermes-xapi.svg)](https://pypi.org/project/hermes-xapi/)
 [![Wheel](https://img.shields.io/pypi/wheel/hermes-xapi.svg)](https://pypi.org/project/hermes-xapi/#files)
-[![Downloads](https://img.shields.io/pypi/dm/hermes-xapi.svg)](https://pypi.org/project/hermes-xapi/)
-[![Release](https://img.shields.io/github/v/release/twexapi-dev/hermes-xapi?sort=semver)](https://github.com/twexapi-dev/hermes-xapi/releases)
-[![Apify Actor](https://apify.com/fastcrawler/tweet-x-twitter-scraper-0-05-1k-pay-per-result-v2)](https://apify.com/fastcrawler/tweet-x-twitter-scraper-0-05-1k-pay-per-result-v2)
+[![Apify Actor](https://apify.com/actor-badge?actor=fastcrawler/tweet-x-twitter-scraper-0-05-1k-pay-per-result-v2)](https://apify.com/fastcrawler/tweet-x-twitter-scraper-0-05-1k-pay-per-result-v2)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Native [Hermes Agent](https://github.com/NousResearch/hermes-agent) plugin for

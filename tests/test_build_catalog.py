@@ -222,6 +222,45 @@ def test_build_resolves_referenced_parameters_and_skips_unnamed_entries(
     ]
 
 
+def test_build_keeps_highest_version_when_equivalent_endpoints_exist(
+    tmp_path: Path,
+) -> None:
+    source = write_openapi(
+        tmp_path,
+        {
+            "/twitter/send-dm": {"post": {"summary": "Send DM", "tags": ["DM Endpoints"]}},
+            "/v3/twitter/send-dm": {
+                "post": {"summary": "Send DM (XChat v3)", "tags": ["DM Endpoints"]}
+            },
+            "/twitter/followers/{screen_name}/{count}": {
+                "get": {
+                    "summary": "Get Followers",
+                    "tags": ["Followers & Following Endpoints"],
+                }
+            },
+            "/v3/twitter/users/followers": {
+                "post": {
+                    "summary": "Get Followers (v3)",
+                    "tags": ["Followers & Following Endpoints"],
+                }
+            },
+            "/v3/twitter/dm-history": {
+                "get": {"summary": "Get DM History (XChat v3)", "tags": ["DM Endpoints"]},
+                "post": {"summary": "Get DM History (XChat v3)", "tags": ["DM Endpoints"]},
+            },
+        },
+    )
+
+    endpoints = build_catalog.build(source)
+
+    assert [(endpoint["method"], endpoint["path"]) for endpoint in endpoints] == [
+        ("GET", "/v3/twitter/dm-history"),
+        ("POST", "/v3/twitter/dm-history"),
+        ("POST", "/v3/twitter/send-dm"),
+        ("POST", "/v3/twitter/users/followers"),
+    ]
+
+
 def test_build_defaults_empty_metadata(tmp_path: Path) -> None:
     source = write_openapi(
         tmp_path,

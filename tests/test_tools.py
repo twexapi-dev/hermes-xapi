@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 
 def test_read_rejects_action_endpoint() -> None:
-    result = json.loads(call_read({"path": "/twitter/followers/elonmusk/10"}))
+    result = json.loads(call_read({"path": "/twitter/tweets/123/replies/10"}))
     assert result["success"] is False
     assert "xapi_action" in result["error"]
 

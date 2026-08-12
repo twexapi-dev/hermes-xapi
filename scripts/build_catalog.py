@@ -11,6 +11,7 @@ import yaml
 
 METHODS = {"get", "post", "put", "patch", "delete"}
 EXPECTED_ARG_COUNT = 2
+MIN_VERSION_GROUP_SIZE = 2
 OUTPUT = Path(__file__).resolve().parents[1] / "hermes_xapi" / "catalog_data.json"
 
 JsonDict = dict[str, Any]
@@ -34,12 +35,16 @@ WRITE_PATH_PATTERNS = (
     re.compile(r"^/twitter/tweets/[^/]+/(?:like|retweet|bookmark)$"),
     re.compile(r"^/twitter/user/(?:follow|block)$"),
     re.compile(r"^/twitter/send-dm$"),
+    re.compile(r"^/v3/twitter/send-dm$"),
+    re.compile(r"^/v3/twitter/tweets/create-thread$"),
     re.compile(r"^/x/articles(?:/.*)?$"),
 )
 PRIVATE_PATH_PATTERNS = (
     re.compile(r"^/balance$"),
     re.compile(r"^/v2/dm/status$"),
     re.compile(r"^/twitter/dm-history$"),
+    re.compile(r"^/v3/twitter/(?:dm-history|dm-media|conversations)$"),
+    re.compile(r"^/v3/twitter/grok(?:/.*)?$"),
     re.compile(r"^/twitter/notifications$"),
 )
 PAID_CATEGORY_PATTERNS = (
@@ -252,6 +257,67 @@ def _compact(endpoint: JsonDict) -> JsonDict:
     }
 
 
+def _version_from_path(path: str) -> int:
+    match = re.match(r"^/v(?P<version>\d+)(?:/|$)", path)
+    return int(match.group("version")) if match else 0
+
+
+def _version_from_summary(summary: str) -> int:
+    versions = [int(item) for item in re.findall(r"\bv(\d+)\b", summary, flags=re.IGNORECASE)]
+    return max(versions, default=0)
+
+
+def _endpoint_version(endpoint: JsonDict) -> int:
+    return max(
+        _version_from_path(str(endpoint.get("path", ""))),
+        _version_from_summary(str(endpoint.get("summary", ""))),
+    )
+
+
+def _canonical_path_key(path: str) -> str:
+    return re.sub(r"^/v\d+(?=/)", "", path)
+
+
+def _semantic_summary_key(endpoint: JsonDict) -> str:
+    summary = str(endpoint.get("summary", ""))
+    summary = re.sub(r"\([^)]*\bv\d+\b[^)]*\)", "", summary, flags=re.IGNORECASE)
+    summary = re.sub(r"\s+", " ", summary).strip().lower()
+    category = str(endpoint.get("category", "")).lower()
+    return f"{category}:{summary}"
+
+
+def _highest_version_indexes(output: list[JsonDict]) -> set[int]:
+    groups: dict[str, list[int]] = {}
+
+    for index, endpoint in enumerate(output):
+        method = str(endpoint.get("method", ""))
+        path = str(endpoint.get("path", ""))
+        path_key = f"path:{method}:{_canonical_path_key(path)}"
+        summary_key = f"summary:{_semantic_summary_key(endpoint)}"
+        keys = (path_key, summary_key)
+        for key in keys:
+            groups.setdefault(key, []).append(index)
+
+    keep = set(range(len(output)))
+    for indexes in groups.values():
+        if len(indexes) < MIN_VERSION_GROUP_SIZE:
+            continue
+        versions = [_endpoint_version(output[index]) for index in indexes]
+        highest = max(versions)
+        if highest == 0:
+            continue
+        for index, version in zip(indexes, versions, strict=True):
+            if version < highest:
+                keep.discard(index)
+
+    return keep
+
+
+def _dedupe_highest_versions(output: list[JsonDict]) -> list[JsonDict]:
+    keep = _highest_version_indexes(output)
+    return [endpoint for index, endpoint in enumerate(output) if index in keep]
+
+
 def build(source: Path) -> list[JsonDict]:
     spec = _as_dict(cast("object", yaml.safe_load(source.read_text(encoding="utf-8"))))
     paths = _as_dict(spec.get("paths"))
@@ -304,7 +370,7 @@ def build(source: Path) -> list[JsonDict]:
                 )
             )
 
-    return output
+    return _dedupe_highest_versions(output)
 
 
 def main() -> int:

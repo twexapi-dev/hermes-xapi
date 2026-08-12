@@ -53,6 +53,22 @@ def test_catalog_excludes_agent_prohibited_twexapi_endpoints() -> None:
     assert find_endpoint("POST", "/twitter/post-tweet-without-cookie") is None
 
 
+def test_catalog_prefers_highest_twexapi_endpoint_versions() -> None:
+    followers = find_endpoint("POST", "/v3/twitter/users/followers")
+    send_dm = find_endpoint("POST", "/v3/twitter/send-dm")
+    dm_history = find_endpoint("POST", "/v3/twitter/dm-history")
+
+    assert followers is not None
+    assert followers.risk == "paid-bulk"
+    assert send_dm is not None
+    assert send_dm.risk == "write"
+    assert dm_history is not None
+    assert dm_history.risk == "private-read"
+    assert find_endpoint("GET", "/twitter/followers/elonmusk/10") is None
+    assert find_endpoint("POST", "/twitter/send-dm") is None
+    assert find_endpoint("POST", "/twitter/dm-history") is None
+
+
 def test_explore_hides_actions_by_default() -> None:
     results = explore({"query": "tweet", "limit": 100})
     assert results

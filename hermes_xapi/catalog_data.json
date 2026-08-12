@@ -10,107 +10,18 @@
     "summary": "Get Balance"
   },
   {
-    "category": "trending",
-    "free": true,
-    "method": "GET",
-    "parameters": [
-      {
-        "description": "Country code or 'worldwide' for global trends",
-        "in": "path",
-        "name": "country",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "path": "/twitter/{country}/trending",
-    "responseShape": "{ StandardResponse }",
-    "risk": "read",
-    "summary": "Get Trending Topics"
-  },
-  {
-    "category": "twitter-user-about",
-    "free": true,
-    "method": "GET",
-    "parameters": [
-      {
-        "description": "The screen name of the twitter user to get about.",
-        "in": "path",
-        "name": "screen_name",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "path": "/twitter/{screen_name}/about",
-    "responseShape": "{ TwitterUserAboutStandardResponse }",
-    "risk": "read",
-    "summary": "Get Twitter User About by Screen Name"
-  },
-  {
-    "action": true,
-    "category": "timeline",
-    "method": "POST",
-    "parameters": [
-      {
-        "description": "Twitter screen name of the target user (with or without @).",
-        "in": "path",
-        "name": "screen_name",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "path": "/twitter/{screen_name}/timeline",
-    "responseShape": "{ UserTimelineResponse }",
-    "risk": "paid-bulk",
-    "summary": "Get User Timeline and Fill Count"
-  },
-  {
-    "action": true,
-    "category": "timeline",
-    "method": "POST",
-    "parameters": [
-      {
-        "description": "Twitter screen name of the target user (with or without @).",
-        "in": "path",
-        "name": "screen_name",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "path": "/twitter/{screen_name}/timeline/page",
-    "responseShape": "{ UserTimelinePageResponse }",
-    "risk": "paid-bulk",
-    "summary": "Get User Timeline by Page"
-  },
-  {
-    "action": true,
-    "category": "all-tweets-replies",
-    "cost": "$0.14 per 1,000 replies",
-    "method": "GET",
-    "parameters": [
-      {
-        "description": "The screen name (username) of the Twitter user to get all tweets and replies from.",
-        "in": "path",
-        "name": "screen_name",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "description": "Maximum number of tweets and replies to return.",
-        "in": "path",
-        "name": "count",
-        "required": true,
-        "type": "integer"
-      }
-    ],
-    "path": "/twitter/{screen_name}/tweets-replies/{count}",
-    "responseShape": "{ SearchResponse }",
-    "risk": "paid-bulk",
-    "summary": "Get All Tweets and Replies by User"
-  },
-  {
     "category": "twitter-account-based-in",
     "free": true,
     "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "array",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/twitter/account/based",
     "responseShape": "{ TwitterAccountBasedStandardResponse }",
     "risk": "read",
@@ -121,6 +32,15 @@
     "category": "search",
     "cost": "$0.14 per 1,000 tweets",
     "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "SearchQuery",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/twitter/advanced_search",
     "responseShape": "{ SearchResponse }",
     "risk": "paid-bulk",
@@ -131,6 +51,15 @@
     "category": "search",
     "cost": "$0.14 per 1,000 tweets",
     "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "AdvancedSearchCursorQuery",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/twitter/advanced_search/page",
     "responseShape": "{ AdvancedSearchCursorResponse }",
     "risk": "paid-bulk",
@@ -140,10 +69,92 @@
     "action": true,
     "category": "search",
     "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "CashtagsQuery",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/twitter/cashtags",
     "responseShape": "{ SearchResponse }",
     "risk": "paid-bulk",
     "summary": "Search Cashtags"
+  },
+  {
+    "action": true,
+    "category": "communities",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "GetCommunityMembersCursorQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/community/members/page",
+    "responseShape": "{ GetCommunityMembersCursorResponse }",
+    "risk": "paid-bulk",
+    "summary": "Get Community Members by Page"
+  },
+  {
+    "category": "communities",
+    "free": true,
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "SearchCommunityQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/community/search",
+    "responseShape": "{ SearchCommunityResponse }",
+    "risk": "read",
+    "summary": "Search Community"
+  },
+  {
+    "category": "communities",
+    "free": true,
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "SearchCommunityTweetsQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/community/search-tweets",
+    "responseShape": "{ CommunityTweetsResponse }",
+    "risk": "read",
+    "summary": "Search Community Tweets"
+  },
+  {
+    "action": true,
+    "category": "communities",
+    "cost": "$0.14 per 1,000 tweets",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "GetCommunityTweetsCursorQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/community/tweets/page",
+    "responseShape": "{ GetCommunityTweetsCursorResponse }",
+    "risk": "paid-bulk",
+    "summary": "Get Community Tweets by Page"
   },
   {
     "category": "communities",
@@ -151,11 +162,11 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "",
-        "in": "path",
         "name": "community_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": ""
       }
     ],
     "path": "/twitter/community/{community_id}",
@@ -169,18 +180,18 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "",
-        "in": "path",
         "name": "community_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": ""
       },
       {
-        "description": "",
-        "in": "path",
         "name": "target_count",
+        "in": "path",
         "required": true,
-        "type": "integer"
+        "type": "integer",
+        "description": ""
       }
     ],
     "path": "/twitter/community/{community_id}/members/{target_count}",
@@ -195,25 +206,25 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "",
-        "in": "path",
         "name": "community_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": ""
       },
       {
-        "description": "",
-        "in": "path",
         "name": "tweet_type",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": ""
       },
       {
-        "description": "",
-        "in": "path",
         "name": "target_count",
+        "in": "path",
         "required": true,
-        "type": "integer"
+        "type": "integer",
+        "description": ""
       }
     ],
     "path": "/twitter/community/{community_id}/tweets/{tweet_type}/{target_count}",
@@ -223,82 +234,18 @@
   },
   {
     "action": true,
-    "category": "communities",
-    "method": "POST",
-    "path": "/twitter/community/members/page",
-    "responseShape": "{ GetCommunityMembersCursorResponse }",
-    "risk": "paid-bulk",
-    "summary": "Get Community Members by Page"
-  },
-  {
-    "category": "communities",
-    "free": true,
-    "method": "POST",
-    "path": "/twitter/community/search",
-    "responseShape": "{ SearchCommunityResponse }",
-    "risk": "read",
-    "summary": "Search Community"
-  },
-  {
-    "category": "communities",
-    "free": true,
-    "method": "POST",
-    "path": "/twitter/community/search-tweets",
-    "responseShape": "{ CommunityTweetsResponse }",
-    "risk": "read",
-    "summary": "Search Community Tweets"
-  },
-  {
-    "action": true,
-    "category": "communities",
-    "cost": "$0.14 per 1,000 tweets",
-    "method": "POST",
-    "path": "/twitter/community/tweets/page",
-    "responseShape": "{ GetCommunityTweetsCursorResponse }",
-    "risk": "paid-bulk",
-    "summary": "Get Community Tweets by Page"
-  },
-  {
-    "action": true,
-    "category": "dm",
-    "method": "POST",
-    "path": "/twitter/dm-history",
-    "responseShape": "{ GetDmHistoryResponse }",
-    "risk": "private-read",
-    "sensitive": true,
-    "summary": "Get DM History"
-  },
-  {
-    "action": true,
     "category": "followers-and-following",
     "cost": "$0.14 per 1,000 users",
-    "method": "GET",
+    "method": "POST",
     "parameters": [
       {
-        "description": "The screen name of the user to get followers.",
-        "in": "path",
-        "name": "screen_name",
+        "name": "body",
+        "in": "body",
         "required": true,
-        "type": "string"
-      },
-      {
-        "description": "The number of followers to get.",
-        "in": "path",
-        "name": "count",
-        "required": true,
-        "type": "integer"
+        "type": "GetFollowersCursorQuery",
+        "description": "JSON request body"
       }
     ],
-    "path": "/twitter/followers/{screen_name}/{count}",
-    "responseShape": "{ GetFollowersResponse }",
-    "risk": "paid-bulk",
-    "summary": "Get Followers"
-  },
-  {
-    "action": true,
-    "category": "followers-and-following",
-    "cost": "$0.14 per 1,000 users",
-    "method": "POST",
     "path": "/twitter/followers/page",
     "responseShape": "{ GetFollowersCursorResponse }",
     "risk": "paid-bulk",
@@ -311,11 +258,11 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "task_id returned when submitting a large followers request",
-        "in": "path",
         "name": "task_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "task_id returned when submitting a large followers request"
       }
     ],
     "path": "/twitter/followers/task/{task_id}/next",
@@ -329,11 +276,11 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "task_id returned when submitting a large followers request",
-        "in": "path",
         "name": "task_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "task_id returned when submitting a large followers request"
       }
     ],
     "path": "/twitter/followers/task/{task_id}/status",
@@ -345,33 +292,16 @@
     "action": true,
     "category": "followers-and-following",
     "cost": "$0.14 per 1,000 users",
-    "method": "GET",
+    "method": "POST",
     "parameters": [
       {
-        "description": "The screen name of the user to get following.",
-        "in": "path",
-        "name": "screen_name",
+        "name": "body",
+        "in": "body",
         "required": true,
-        "type": "string"
-      },
-      {
-        "description": "The number of following to get.",
-        "in": "path",
-        "name": "count",
-        "required": true,
-        "type": "integer"
+        "type": "GetFollowingCursorQuery",
+        "description": "JSON request body"
       }
     ],
-    "path": "/twitter/following/{screen_name}/{count}",
-    "responseShape": "{ GetFollowingResponse }",
-    "risk": "paid-bulk",
-    "summary": "Get Following"
-  },
-  {
-    "action": true,
-    "category": "followers-and-following",
-    "cost": "$0.14 per 1,000 users",
-    "method": "POST",
     "path": "/twitter/following/page",
     "responseShape": "{ GetFollowingCursorResponse }",
     "risk": "paid-bulk",
@@ -384,11 +314,11 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "task_id returned when submitting a large following request",
-        "in": "path",
         "name": "task_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "task_id returned when submitting a large following request"
       }
     ],
     "path": "/twitter/following/task/{task_id}/next",
@@ -402,11 +332,11 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "task_id returned when submitting a large following request",
-        "in": "path",
         "name": "task_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "task_id returned when submitting a large following request"
       }
     ],
     "path": "/twitter/following/task/{task_id}/status",
@@ -420,18 +350,18 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "Country name or slug returned by /twitter/global-trending/countries",
-        "in": "query",
         "name": "country",
+        "in": "query",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "Country name or slug returned by /twitter/global-trending/countries"
       },
       {
-        "description": "Topic name or slug returned by /twitter/global-trending/topics",
-        "in": "query",
         "name": "topic",
+        "in": "query",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "Topic name or slug returned by /twitter/global-trending/topics"
       }
     ],
     "path": "/twitter/global-trending/contents",
@@ -463,32 +393,32 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "Country name or slug returned by /twitter/global-trending/countries",
-        "in": "query",
         "name": "country",
+        "in": "query",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "Country name or slug returned by /twitter/global-trending/countries"
       },
       {
-        "description": "Optional topic name or slug returned by /twitter/global-trending/topics",
-        "in": "query",
         "name": "topic",
+        "in": "query",
         "required": false,
-        "type": "unknown"
+        "type": "unknown",
+        "description": "Optional topic name or slug returned by /twitter/global-trending/topics"
       },
       {
-        "description": "Optional content tag returned by /twitter/global-trending/contents",
-        "in": "query",
         "name": "content",
+        "in": "query",
         "required": false,
-        "type": "unknown"
+        "type": "unknown",
+        "description": "Optional content tag returned by /twitter/global-trending/contents"
       },
       {
-        "description": "Maximum number of tweets to return.",
-        "in": "query",
         "name": "count",
+        "in": "query",
         "required": false,
-        "type": "integer"
+        "type": "integer",
+        "description": "Maximum number of tweets to return."
       }
     ],
     "path": "/twitter/global-trending/tweets",
@@ -500,6 +430,15 @@
     "action": true,
     "category": "search",
     "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "HashtagsQuery",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/twitter/hashtags",
     "responseShape": "{ SearchResponse }",
     "risk": "paid-bulk",
@@ -512,11 +451,11 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "The screen name of the user to get latest followers.",
-        "in": "path",
         "name": "screen_name",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "The screen name of the user to get latest followers."
       }
     ],
     "path": "/twitter/latest-followers/{screen_name}",
@@ -531,11 +470,11 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "The screen name of the user to get latest following.",
-        "in": "path",
         "name": "screen_name",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "The screen name of the user to get latest following."
       }
     ],
     "path": "/twitter/latest-following/{screen_name}",
@@ -546,21 +485,76 @@
   {
     "action": true,
     "category": "lists",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "GetListMembersCursorQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/list/members/page",
+    "responseShape": "{ GetListMembersCursorResponse }",
+    "risk": "paid-bulk",
+    "summary": "Get List Members by Page"
+  },
+  {
+    "category": "lists",
+    "free": true,
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "SearchListQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/list/search",
+    "responseShape": "{ SearchListResponse }",
+    "risk": "read",
+    "summary": "Search List"
+  },
+  {
+    "action": true,
+    "category": "lists",
+    "cost": "$0.14 per 1,000 tweets",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "GetListTweetsCursorQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/list/tweets/page",
+    "responseShape": "{ GetListTweetsCursorResponse }",
+    "risk": "paid-bulk",
+    "summary": "Get List Tweets by Page"
+  },
+  {
+    "action": true,
+    "category": "lists",
     "method": "GET",
     "parameters": [
       {
-        "description": "",
-        "in": "path",
         "name": "list_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": ""
       },
       {
-        "description": "",
-        "in": "path",
         "name": "target_count",
+        "in": "path",
         "required": true,
-        "type": "integer"
+        "type": "integer",
+        "description": ""
       }
     ],
     "path": "/twitter/list/{list_id}/members/{target_count}",
@@ -574,18 +568,18 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "",
-        "in": "path",
         "name": "list_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": ""
       },
       {
-        "description": "",
-        "in": "path",
         "name": "target_count",
+        "in": "path",
         "required": true,
-        "type": "integer"
+        "type": "integer",
+        "description": ""
       }
     ],
     "path": "/twitter/list/{list_id}/subscribers/{target_count}",
@@ -600,18 +594,18 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "",
-        "in": "path",
         "name": "list_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": ""
       },
       {
-        "description": "",
-        "in": "path",
         "name": "target_count",
+        "in": "path",
         "required": true,
-        "type": "integer"
+        "type": "integer",
+        "description": ""
       }
     ],
     "path": "/twitter/list/{list_id}/tweets/{target_count}",
@@ -621,36 +615,17 @@
   },
   {
     "action": true,
-    "category": "lists",
-    "method": "POST",
-    "path": "/twitter/list/members/page",
-    "responseShape": "{ GetListMembersCursorResponse }",
-    "risk": "paid-bulk",
-    "summary": "Get List Members by Page"
-  },
-  {
-    "category": "lists",
-    "free": true,
-    "method": "POST",
-    "path": "/twitter/list/search",
-    "responseShape": "{ SearchListResponse }",
-    "risk": "read",
-    "summary": "Search List"
-  },
-  {
-    "action": true,
-    "category": "lists",
-    "cost": "$0.14 per 1,000 tweets",
-    "method": "POST",
-    "path": "/twitter/list/tweets/page",
-    "responseShape": "{ GetListTweetsCursorResponse }",
-    "risk": "paid-bulk",
-    "summary": "Get List Tweets by Page"
-  },
-  {
-    "action": true,
     "category": "notifications",
     "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "GetNotificationsQuery",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/twitter/notifications",
     "responseShape": "{ GetNotificationsResponse }",
     "risk": "private-read",
@@ -663,18 +638,18 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "The keyword to search for.",
-        "in": "path",
         "name": "keyword",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "The keyword to search for."
       },
       {
-        "description": "The number of users to return.",
-        "in": "path",
         "name": "target_count",
+        "in": "path",
         "required": true,
-        "type": "integer"
+        "type": "integer",
+        "description": "The number of users to return."
       }
     ],
     "path": "/twitter/search-user/{keyword}/{target_count}",
@@ -684,20 +659,18 @@
   },
   {
     "action": true,
-    "category": "dm",
-    "cost": "$0.0025 per call",
-    "method": "POST",
-    "path": "/twitter/send-dm",
-    "responseShape": "{ SendDmResponse }",
-    "risk": "write",
-    "sensitive": true,
-    "summary": "Send DM"
-  },
-  {
-    "action": true,
     "category": "tweet-engagement",
     "cost": "$0.14 per 1,000 tweets",
     "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "GetFavoritersQuery",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/twitter/tweets-favoriters",
     "responseShape": "{ SearchUserResponse }",
     "risk": "paid-bulk",
@@ -708,6 +681,15 @@
     "category": "all-tweets-replies",
     "cost": "$0.14 per 1,000 replies",
     "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "GetAllTweetsRepliesCursorQuery",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/twitter/tweets-replies/page",
     "responseShape": "{ GetAllTweetsRepliesCursorResponse }",
     "risk": "paid-bulk",
@@ -717,14 +699,176 @@
     "action": true,
     "category": "tweet-actions",
     "cost": "$0.0025 per call",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "PostTweetQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/tweets/create",
+    "responseShape": "{ PostTweetResponse }",
+    "risk": "write",
+    "sensitive": true,
+    "summary": "Create a Tweet or Reply"
+  },
+  {
+    "action": true,
+    "category": "tweet-actions",
+    "cost": "$0.0025 per call",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "DeleteTweetQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/tweets/delete-batch",
+    "responseShape": "{ DeleteTweetResponse }",
+    "risk": "write",
+    "sensitive": true,
+    "summary": "Delete One or More Tweets"
+  },
+  {
+    "action": true,
+    "category": "tweets",
+    "cost": "$0.14 per 1,000 tweets",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "array",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/tweets/lookup",
+    "responseShape": "{ GetTweetsByIdResponse }",
+    "risk": "paid-bulk",
+    "summary": "Batch Get Tweets by ID"
+  },
+  {
+    "action": true,
+    "category": "tweet-actions",
+    "cost": "$0.0025 per call",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "QuoteTweetQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/tweets/quote",
+    "responseShape": "{ PostTweetResponse }",
+    "risk": "write",
+    "sensitive": true,
+    "summary": "Create a Quote Tweet"
+  },
+  {
+    "action": true,
+    "category": "tweet-engagement",
+    "cost": "$0.14 per 1,000 tweets",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "GetQuotesQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/tweets/quotes",
+    "responseShape": "{ GetQuotesResponse }",
+    "risk": "paid-bulk",
+    "summary": "Get Quote Tweets"
+  },
+  {
+    "action": true,
+    "category": "tweet-engagement",
+    "cost": "$0.14 per 1,000 tweets",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "GetQuotesCursorQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/tweets/quotes/page",
+    "responseShape": "{ GetQuotesCursorResponse }",
+    "risk": "paid-bulk",
+    "summary": "Get Quote Tweets by Page"
+  },
+  {
+    "action": true,
+    "category": "tweet-engagement",
+    "cost": "$0.14 per 1,000 tweets",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "GetRetweetersCursorQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/tweets/retweeters/page",
+    "responseShape": "{ GetRetweetersCursorResponse }",
+    "risk": "paid-bulk",
+    "summary": "Get Retweeters by Page"
+  },
+  {
+    "action": true,
+    "category": "tweets",
+    "cost": "$0.14 per 1,000 tweets",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "TweetThreadByIdBody",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/tweets/thread_by_id",
+    "responseShape": "A list of tweets in the thread, sorted by latest.",
+    "risk": "paid-bulk",
+    "summary": "Get Tweet Thread by ID"
+  },
+  {
+    "action": true,
+    "category": "tweet-actions",
+    "cost": "$0.0025 per call",
     "method": "DELETE",
     "parameters": [
       {
-        "description": "The ID of the tweet to delete.",
-        "in": "path",
         "name": "tweet_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "The ID of the tweet to delete."
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "DeleteBookmarkQuery",
+        "description": "JSON request body"
       }
     ],
     "path": "/twitter/tweets/{tweet_id}/bookmark",
@@ -740,11 +884,18 @@
     "method": "POST",
     "parameters": [
       {
-        "description": "The ID of the tweet to bookmark.",
-        "in": "path",
         "name": "tweet_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "The ID of the tweet to bookmark."
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "BookmarkBody",
+        "description": "JSON request body"
       }
     ],
     "path": "/twitter/tweets/{tweet_id}/bookmark",
@@ -760,11 +911,18 @@
     "method": "DELETE",
     "parameters": [
       {
-        "description": "The ID of the tweet to delete.",
-        "in": "path",
         "name": "tweet_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "The ID of the tweet to delete."
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "UnfavoriteTweetQuery",
+        "description": "JSON request body"
       }
     ],
     "path": "/twitter/tweets/{tweet_id}/like",
@@ -780,11 +938,18 @@
     "method": "POST",
     "parameters": [
       {
-        "description": "The numeric ID of the tweet to like.",
-        "in": "path",
         "name": "tweet_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "The numeric ID of the tweet to like."
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "LikeActionBody",
+        "description": "JSON request body"
       }
     ],
     "path": "/twitter/tweets/{tweet_id}/like",
@@ -795,36 +960,29 @@
   },
   {
     "action": true,
-    "category": "tweet-engagement",
-    "cost": "$0.14 per 1,000 tweets",
-    "method": "GET",
+    "category": "tweet-replies",
+    "cost": "$0.14 per 1,000 replies",
+    "method": "POST",
     "parameters": [
       {
-        "description": "",
-        "in": "path",
         "name": "tweet_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "The ID of the tweet to get replies for."
       },
       {
-        "description": "",
-        "in": "path",
-        "name": "sort_by",
+        "name": "body",
+        "in": "body",
         "required": true,
-        "type": "string"
-      },
-      {
-        "description": "",
-        "in": "path",
-        "name": "target_count",
-        "required": true,
-        "type": "integer"
+        "type": "GetRepliesPageQuery",
+        "description": "JSON request body"
       }
     ],
-    "path": "/twitter/tweets/{tweet_id}/quotes/{sort_by}/{target_count}",
-    "responseShape": "{ QuoteTweetsResponse }",
+    "path": "/twitter/tweets/{tweet_id}/replies/page",
+    "responseShape": "{ GetRepliesPageResponse }",
     "risk": "paid-bulk",
-    "summary": "Get Quote Tweets"
+    "summary": "Get Replies by Page (Recommended)"
   },
   {
     "action": true,
@@ -833,31 +991,31 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "The ID of the tweet to get replies for.",
-        "in": "path",
         "name": "tweet_id",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "description": "Maximum number of replies to return.",
         "in": "path",
-        "name": "count",
         "required": true,
-        "type": "integer"
+        "type": "string",
+        "description": "The ID of the tweet to get replies for."
       },
       {
-        "description": "Sort by Relevancy or Latest or Likes",
-        "in": "query",
+        "name": "count",
+        "in": "path",
+        "required": true,
+        "type": "integer",
+        "description": "Maximum number of replies to return."
+      },
+      {
         "name": "sort_by",
+        "in": "query",
         "required": false,
-        "type": "unknown"
+        "type": "unknown",
+        "description": "Sort by Relevancy or Latest or Likes"
       }
     ],
     "path": "/twitter/tweets/{tweet_id}/replies/{count}",
     "responseShape": "{ ReplyResponse }",
     "risk": "paid-bulk",
-    "summary": "Get Replies by Tweet ID"
+    "summary": "Get Replies by Tweet ID (Legacy)"
   },
   {
     "action": true,
@@ -866,11 +1024,18 @@
     "method": "DELETE",
     "parameters": [
       {
-        "description": "The ID of the tweet to delete.",
-        "in": "path",
         "name": "tweet_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "The ID of the tweet to delete."
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "DeleteRetweetQuery",
+        "description": "JSON request body"
       }
     ],
     "path": "/twitter/tweets/{tweet_id}/retweet",
@@ -886,11 +1051,18 @@
     "method": "POST",
     "parameters": [
       {
-        "description": "The ID of the tweet to retweet.",
-        "in": "path",
         "name": "tweet_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "The ID of the tweet to retweet."
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "RetweetActionBody",
+        "description": "JSON request body"
       }
     ],
     "path": "/twitter/tweets/{tweet_id}/retweet",
@@ -906,18 +1078,18 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "",
-        "in": "path",
         "name": "tweet_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "The ID of the tweet to get retweeters for."
       },
       {
-        "description": "",
-        "in": "path",
         "name": "target_count",
+        "in": "path",
         "required": true,
-        "type": "integer"
+        "type": "integer",
+        "description": "Number of retweeters to return (minimum 10, maximum 5000)."
       }
     ],
     "path": "/twitter/tweets/{tweet_id}/retweeters/{target_count}",
@@ -931,11 +1103,11 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "",
-        "in": "path",
         "name": "tweet_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": ""
       }
     ],
     "path": "/twitter/tweets/{tweet_id}/similar",
@@ -945,61 +1117,18 @@
   },
   {
     "action": true,
-    "category": "tweet-actions",
-    "cost": "$0.0025 per call",
-    "method": "POST",
-    "path": "/twitter/tweets/create",
-    "responseShape": "{ PostTweetResponse }",
-    "risk": "write",
-    "sensitive": true,
-    "summary": "Create a Tweet or Reply"
-  },
-  {
-    "action": true,
-    "category": "tweet-actions",
-    "cost": "$0.0025 per call",
-    "method": "POST",
-    "path": "/twitter/tweets/delete-batch",
-    "responseShape": "{ DeleteTweetResponse }",
-    "risk": "write",
-    "sensitive": true,
-    "summary": "Delete One or More Tweets"
-  },
-  {
-    "action": true,
-    "category": "tweets",
-    "cost": "$0.14 per 1,000 tweets",
-    "method": "POST",
-    "path": "/twitter/tweets/lookup",
-    "responseShape": "{ GetTweetsByIdResponse }",
-    "risk": "paid-bulk",
-    "summary": "Batch Get Tweets by ID"
-  },
-  {
-    "action": true,
-    "category": "tweet-actions",
-    "cost": "$0.0025 per call",
-    "method": "POST",
-    "path": "/twitter/tweets/quote",
-    "responseShape": "{ PostTweetResponse }",
-    "risk": "write",
-    "sensitive": true,
-    "summary": "Create a Quote Tweet"
-  },
-  {
-    "action": true,
-    "category": "tweets",
-    "cost": "$0.14 per 1,000 tweets",
-    "method": "POST",
-    "path": "/twitter/tweets/thread_by_id",
-    "risk": "paid-bulk",
-    "summary": "Get Tweet Thread by ID"
-  },
-  {
-    "action": true,
     "category": "users",
     "cost": "$0.0025 per call",
     "method": "DELETE",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "BlockUserQuery",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/twitter/user/block",
     "responseShape": "{ BlockUserResponse }",
     "risk": "write",
@@ -1011,6 +1140,15 @@
     "category": "users",
     "cost": "$0.0025 per call",
     "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "BlockUserQuery",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/twitter/user/block",
     "responseShape": "{ BlockUserResponse }",
     "risk": "write",
@@ -1022,6 +1160,15 @@
     "category": "users",
     "cost": "$0.0025 per call",
     "method": "DELETE",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "UnfollowUserQuery",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/twitter/user/follow",
     "responseShape": "{ UnfollowUserResponse }",
     "risk": "write",
@@ -1033,6 +1180,15 @@
     "category": "users",
     "cost": "$0.0025 per call",
     "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "FollowUserQuery",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/twitter/user/follow",
     "responseShape": "{ BlockUserResponse }",
     "risk": "write",
@@ -1043,7 +1199,17 @@
     "category": "users",
     "free": true,
     "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "array",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/twitter/users",
+    "responseShape": "A list of user profile objects. Unfound users are represented by `null`.",
     "risk": "read",
     "summary": "Get Multiple Users by Usernames"
   },
@@ -1051,6 +1217,15 @@
     "category": "users",
     "free": true,
     "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "array",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/twitter/users/by_ids",
     "responseShape": "{ UsersDetailsResponse }",
     "risk": "read",
@@ -1060,14 +1235,145 @@
     "category": "users",
     "free": true,
     "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "array",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/twitter/users/status",
+    "responseShape": "A list of user account status strings. If user is suspended return suspended, if unfound return null.",
     "risk": "read",
     "summary": "Batch Get User account status"
+  },
+  {
+    "category": "trending",
+    "free": true,
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "country",
+        "in": "path",
+        "required": true,
+        "type": "string",
+        "description": "Country slug or 'worldwide' for default explore trends"
+      }
+    ],
+    "path": "/twitter/{country}/trending",
+    "responseShape": "{ StandardResponse }",
+    "risk": "read",
+    "summary": "Get Trending Topics"
+  },
+  {
+    "category": "twitter-user-about",
+    "free": true,
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "screen_name",
+        "in": "path",
+        "required": true,
+        "type": "string",
+        "description": "The screen name of the twitter user to get about."
+      }
+    ],
+    "path": "/twitter/{screen_name}/about",
+    "responseShape": "{ TwitterUserAboutStandardResponse }",
+    "risk": "read",
+    "summary": "Get Twitter User About by Screen Name"
+  },
+  {
+    "action": true,
+    "category": "timeline",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "screen_name",
+        "in": "path",
+        "required": true,
+        "type": "string",
+        "description": "Twitter screen name of the target user (with or without @)."
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "UserTimelineFillQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/{screen_name}/timeline",
+    "responseShape": "{ UserTimelineResponse }",
+    "risk": "paid-bulk",
+    "summary": "Get User Timeline and Fill Count"
+  },
+  {
+    "action": true,
+    "category": "timeline",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "screen_name",
+        "in": "path",
+        "required": true,
+        "type": "string",
+        "description": "Twitter screen name of the target user (with or without @)."
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "UserTimelinePageQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/twitter/{screen_name}/timeline/page",
+    "responseShape": "{ UserTimelinePageResponse }",
+    "risk": "paid-bulk",
+    "summary": "Get User Timeline by Page"
+  },
+  {
+    "action": true,
+    "category": "all-tweets-replies",
+    "cost": "$0.14 per 1,000 replies",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "screen_name",
+        "in": "path",
+        "required": true,
+        "type": "string",
+        "description": "The screen name (username) of the Twitter user to get all tweets and replies from."
+      },
+      {
+        "name": "count",
+        "in": "path",
+        "required": true,
+        "type": "integer",
+        "description": "Maximum number of tweets and replies to return."
+      }
+    ],
+    "path": "/twitter/{screen_name}/tweets-replies/{count}",
+    "responseShape": "{ SearchResponse }",
+    "risk": "paid-bulk",
+    "summary": "Get All Tweets and Replies by User"
   },
   {
     "action": true,
     "category": "dm",
     "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "array",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/v2/dm/status",
     "responseShape": "{ DMStatusResponseV2 }",
     "risk": "private-read",
@@ -1075,9 +1381,247 @@
     "summary": "Check DM Permissions (V2)"
   },
   {
+    "action": true,
+    "category": "tweets",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "array",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/v2/tweet/detail",
+    "responseShape": "A list of tweet objects.",
+    "risk": "paid-bulk",
+    "summary": "Get Tweet Detail (v2)"
+  },
+  {
+    "action": true,
+    "category": "dm",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "GetConversationsV3Query",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/v3/twitter/conversations",
+    "responseShape": "{ GetConversationsV3Response }",
+    "risk": "private-read",
+    "sensitive": true,
+    "summary": "Get Conversations (XChat v3)"
+  },
+  {
+    "action": true,
+    "category": "dm",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "GetDmHistoryV3Query",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/v3/twitter/dm-history",
+    "responseShape": "{ GetDmHistoryV3Response }",
+    "risk": "private-read",
+    "sensitive": true,
+    "summary": "Get DM History (XChat v3)"
+  },
+  {
+    "action": true,
+    "category": "dm",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "GetDmMediaV3Query",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/v3/twitter/dm-media",
+    "responseShape": "{ GetDmMediaV3Response }",
+    "risk": "private-read",
+    "sensitive": true,
+    "summary": "Get DM Media (XChat v3)"
+  },
+  {
+    "action": true,
+    "category": "grok",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "GrokAskQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/v3/twitter/grok/ask",
+    "responseShape": "{ GrokAskResponse }",
+    "risk": "private-read",
+    "sensitive": true,
+    "summary": "Ask Grok"
+  },
+  {
+    "action": true,
+    "category": "grok",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "GrokConversationQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/v3/twitter/grok/conversation",
+    "responseShape": "{ GrokConversationResponse }",
+    "risk": "private-read",
+    "sensitive": true,
+    "summary": "Get Grok Conversation"
+  },
+  {
+    "action": true,
+    "category": "grok",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "GrokHistoryQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/v3/twitter/grok/history",
+    "responseShape": "{ GrokHistoryResponse }",
+    "risk": "private-read",
+    "sensitive": true,
+    "summary": "Get Grok History"
+  },
+  {
+    "action": true,
+    "category": "dm",
+    "cost": "$0.0025 per call",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "SendDmV3Query",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/v3/twitter/send-dm",
+    "responseShape": "{ SendDmResponse }",
+    "risk": "write",
+    "sensitive": true,
+    "summary": "Send DM (XChat v3)"
+  },
+  {
+    "action": true,
+    "category": "tweet-actions",
+    "cost": "$0.0025 per call",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "CreateThreadQuery",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/v3/twitter/tweets/create-thread",
+    "responseShape": "{ CreateThreadResponse }",
+    "risk": "write",
+    "sensitive": true,
+    "summary": "Create a Tweet Thread"
+  },
+  {
+    "action": true,
+    "category": "followers-and-following",
+    "cost": "$0.14 per 1,000 users",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "FollowersFollowingV3Query",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/v3/twitter/users/followers",
+    "responseShape": "{ VerifiedFollowersResponse }",
+    "risk": "paid-bulk",
+    "summary": "Get Followers (v3)"
+  },
+  {
+    "action": true,
+    "category": "followers-and-following",
+    "cost": "$0.14 per 1,000 users",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "FollowersFollowingV3Query",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/v3/twitter/users/following",
+    "responseShape": "{ VerifiedFollowersResponse }",
+    "risk": "paid-bulk",
+    "summary": "Get Following (v3)"
+  },
+  {
+    "action": true,
+    "category": "followers-and-following",
+    "cost": "$0.14 per 1,000 users",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "FollowersFollowingV3Query",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/v3/twitter/users/verified-followers",
+    "responseShape": "{ VerifiedFollowersResponse }",
+    "risk": "paid-bulk",
+    "summary": "Get Verified Followers"
+  },
+  {
     "category": "users",
     "free": true,
     "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "array",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/x/account/verify",
     "responseShape": "{ AccountVerifyResponse }",
     "risk": "read",
@@ -1087,6 +1631,15 @@
     "action": true,
     "category": "article",
     "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "array",
+        "description": "JSON request body"
+      }
+    ],
     "path": "/x/article",
     "responseShape": "{ XArticleResponse }",
     "risk": "paid-bulk",
@@ -1098,16 +1651,57 @@
     "method": "GET",
     "parameters": [
       {
-        "description": "The tweet ID of the article to get.",
-        "in": "path",
         "name": "tweet_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": "The tweet ID of the article to get."
       }
     ],
     "path": "/x/article/{tweet_id}/markdown",
+    "responseShape": "Raw Markdown string representing the article content.",
     "risk": "read",
     "summary": "Fetch Article as Markdown"
+  },
+  {
+    "action": true,
+    "category": "article",
+    "cost": "$0.0025 per call",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "ArticleCreateDraftBody",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/x/articles/draft",
+    "responseShape": "{ ArticleDraftResponse }",
+    "risk": "write",
+    "sensitive": true,
+    "summary": "[Step 1/5] Create a new article draft"
+  },
+  {
+    "action": true,
+    "category": "article",
+    "cost": "$0.0025 per call",
+    "method": "POST",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "ArticlePublishAllInOneBody",
+        "description": "JSON request body"
+      }
+    ],
+    "path": "/x/articles/publish",
+    "responseShape": "{ ArticlePublishResponse }",
+    "risk": "write",
+    "sensitive": true,
+    "summary": "[Quick] One-step article publish"
   },
   {
     "action": true,
@@ -1116,11 +1710,18 @@
     "method": "PUT",
     "parameters": [
       {
-        "description": "",
-        "in": "path",
         "name": "article_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "ArticleUpdateContentBody",
+        "description": "JSON request body"
       }
     ],
     "path": "/x/articles/{article_id}/content",
@@ -1136,11 +1737,18 @@
     "method": "PUT",
     "parameters": [
       {
-        "description": "",
-        "in": "path",
         "name": "article_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "ArticleUpdateCoverBody",
+        "description": "JSON request body"
       }
     ],
     "path": "/x/articles/{article_id}/cover",
@@ -1156,11 +1764,18 @@
     "method": "POST",
     "parameters": [
       {
-        "description": "",
-        "in": "path",
         "name": "article_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "ArticlePublishBody",
+        "description": "JSON request body"
       }
     ],
     "path": "/x/articles/{article_id}/publish",
@@ -1176,11 +1791,18 @@
     "method": "PUT",
     "parameters": [
       {
-        "description": "",
-        "in": "path",
         "name": "article_id",
+        "in": "path",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "type": "ArticleUpdateTitleBody",
+        "description": "JSON request body"
       }
     ],
     "path": "/x/articles/{article_id}/title",
@@ -1188,27 +1810,5 @@
     "risk": "write",
     "sensitive": true,
     "summary": "[Step 3/5] Set article title"
-  },
-  {
-    "action": true,
-    "category": "article",
-    "cost": "$0.0025 per call",
-    "method": "POST",
-    "path": "/x/articles/draft",
-    "responseShape": "{ ArticleDraftResponse }",
-    "risk": "write",
-    "sensitive": true,
-    "summary": "[Step 1/5] Create a new article draft"
-  },
-  {
-    "action": true,
-    "category": "article",
-    "cost": "$0.0025 per call",
-    "method": "POST",
-    "path": "/x/articles/publish",
-    "responseShape": "{ ArticlePublishResponse }",
-    "risk": "write",
-    "sensitive": true,
-    "summary": "[Quick] One-step article publish"
   }
 ]

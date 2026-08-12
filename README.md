@@ -28,7 +28,7 @@ media automation for agents, or a native Hermes toolset for X/Twitter.
 
 - Published Python package with a native Hermes plugin entry point.
 - Installable from PyPI as `hermes-xapi`.
-- 76 agent-callable TwexAPI endpoints generated from OpenAPI.
+- 87 agent-callable TwexAPI endpoints generated from TwexAPI OpenAPI docs.
 - Risk-classified endpoint catalog with read, private-read, paid-bulk, and write
   routes.
 - Read and action tools are split for least-privilege operation.

@@ -59,6 +59,7 @@ After environment changes, reload an active CLI session. For gateway use, run
 
 - Unreleased: Add marketplace metadata, required sections, and reference docs.
 - Unreleased: Add capability declarations, risk controls, and release gates.
+- 0.1.7: Sync catalog to TwexAPI OpenAPI copy 8 and prefer highest endpoint versions.
 - 0.1.6: Refresh catalog wording from the current TwexAPI OpenAPI.
 - 0.1.5: Add registry metadata and Hermes runtime guidance.
 - 0.1.4: Add public registry frontmatter for skill discovery.

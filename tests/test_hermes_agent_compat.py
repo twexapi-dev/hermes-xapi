@@ -70,9 +70,9 @@ def test_source_checks_track_reviewed_hermes_agent_locks() -> None:
     locks = {check.path: check.expected_sha for check in compat.SOURCE_CHECKS}
 
     assert locks == {
-        "hermes_cli/plugins.py": "ea0b8ea2ffe1b6b5c3616f4bc005081a09141337",
-        "tools/registry.py": "9b6611fb407dd17da5aa4ae2ba6a39498af830da",
-        "hermes_cli/plugins_cmd.py": "6a7c39f3e4e014f98201766e980d19c696e1c545",
+        "hermes_cli/plugins.py": "13ea0a32269a845e8dc6d16f76076a2d552ead15",
+        "tools/registry.py": "fc5f98ec23bf824a18b96e3583940577d9a5b9f1",
+        "hermes_cli/plugins_cmd.py": "968b775191ea3f100b1bcdec9856ab695839eebb",
     }
 
 

@@ -1,7 +1,7 @@
 # Publication Checklist
 
 Hermes XAPI is published as `hermes-xapi` on PyPI and currently released at
-`0.1.6`.
+`0.1.7`.
 
 ## Before GitHub Publication
 
@@ -79,10 +79,10 @@ uv run --python 3.12 --extra dev python scripts/check_hermes_agent_compat.py
 If a locked Hermes Agent source SHA changes, review the official diff first,
 then update Hermes XAPI runtime, docs, tests, and the checker lock together.
 
-Latest reviewed locks from July 10, 2026: `hermes_cli/plugins.py`
-`ea0b8ea2ffe1b6b5c3616f4bc005081a09141337`, `tools/registry.py`
-`9b6611fb407dd17da5aa4ae2ba6a39498af830da`, and
-`hermes_cli/plugins_cmd.py` `6a7c39f3e4e014f98201766e980d19c696e1c545`.
+Latest reviewed locks from August 12, 2026: `hermes_cli/plugins.py`
+`13ea0a32269a845e8dc6d16f76076a2d552ead15`, `tools/registry.py`
+`fc5f98ec23bf824a18b96e3583940577d9a5b9f1`, and
+`hermes_cli/plugins_cmd.py` `968b775191ea3f100b1bcdec9856ab695839eebb`.
 
 Keep the runtime contract aligned with those sources:
 
@@ -127,4 +127,4 @@ Expected result:
 Keep optional signed-in submissions, local-secret smoke tests, pending outreach,
 duplicate checks, and maintainer-blocked directory routes in private operator
 notes. Do not commit those operational notes to the public repository. No
-package release blocker remains after the `0.1.6` release.
+package release blocker remains after the `0.1.7` release.

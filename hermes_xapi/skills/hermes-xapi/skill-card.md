@@ -12,7 +12,7 @@ skill directory.
 - Publisher: TwexAPI
 - Repository: https://github.com/twexapi-dev/hermes-xapi
 - License: MIT
-- Version: 0.1.6
+- Version: 0.1.7
 - Primary skill file: `SKILL.md`
 
 ## Use Case

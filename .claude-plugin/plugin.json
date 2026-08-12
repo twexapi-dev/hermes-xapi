@@ -1,6 +1,6 @@
 {
   "name": "hermes-xapi",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Native Hermes Agent X/Twitter plugin for TwexAPI automation with read-first workflows and approval-gated actions.",
   "author": {
     "name": "TwexAPI",

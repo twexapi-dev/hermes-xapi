@@ -105,7 +105,7 @@ runtime locally.
 | Repository guide | [`github.com/twexapi-dev/hermes-xapi#readme`](https://github.com/twexapi-dev/hermes-xapi#readme) |
 | Context7 | [`context7.com/twexapi-dev/hermes-xapi`](https://context7.com/twexapi-dev/hermes-xapi) |
 | piwheels | [`hermes-xapi`](https://piwheels.org/project/hermes-xapi/) |
-| Latest release | [`v0.1.6`](https://github.com/twexapi-dev/hermes-xapi/releases/tag/v0.1.6) |
+| Latest release | [`v0.1.7`](https://github.com/twexapi-dev/hermes-xapi/releases/tag/v0.1.7) |
 | Supported Python | `>=3.11` |
 | Package format | Wheel and source distribution |
 | Hermes entry point | `hermes-xapi = hermes_xapi` |

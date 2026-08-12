@@ -1,6 +1,6 @@
 {
   "name": "hermes-xapi",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Hermes Agent X/Twitter plugin for TwexAPI automation",
   "author": "TwexAPI",
   "tags": [

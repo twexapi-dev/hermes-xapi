@@ -6,7 +6,7 @@ allowed-tools:
   - xapi_explore
   - xapi_read
   - xapi_action
-version: 0.1.6
+version: 0.1.7
 author: Burak Bayır (@kriptoburak), TwexAPI
 license: MIT
 compatibility: Requires Hermes Agent plugin support and TwexAPI API access.
@@ -19,7 +19,7 @@ tags:
   - social-media
   - automation
 metadata:
-  version: 0.1.6
+  version: 0.1.7
   author: TwexAPI
   tags:
     - hermes-agent

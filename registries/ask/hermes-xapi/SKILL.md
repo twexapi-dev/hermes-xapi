@@ -1,7 +1,7 @@
 ---
 name: hermes-xapi
 description: Search Twitter/X, read public profiles and trends, fetch replies and followers, and gate X actions through TwexAPI.
-version: 0.1.6
+version: 0.1.7
 author: TwexAPI
 license: MIT
 tags:
@@ -12,7 +12,7 @@ tags:
   - social-media
   - automation
 metadata:
-  version: 0.1.6
+  version: 0.1.7
   author: TwexAPI
   repository: https://github.com/twexapi-dev/hermes-xapi
   plugin: hermes plugins install twexapi-dev/hermes-xapi --enable

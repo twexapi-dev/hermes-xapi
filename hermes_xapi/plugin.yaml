@@ -1,5 +1,5 @@
 name: hermes-xapi
-version: 0.1.6
+version: 0.1.7
 description: "Native Hermes Agent plugin for X/Twitter automation through TwexAPI. Not affiliated with X Corp."
 author: TwexAPI
 requires_env:

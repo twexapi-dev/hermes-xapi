@@ -130,6 +130,7 @@ HOL_PLUGIN_SCANNER_ACTION_SHA = (
 )
 ACTIONLINT_MODULE = "github.com/rhysd/actionlint/cmd/actionlint@v1.7.12"
 BLACKSMITH_RUNNER_LABEL = "blacksmith-2vcpu-ubuntu-2404"
+GITHUB_HOSTED_RUNNER_LABEL = "ubuntu-latest"
 HERMES_AGENT_COMPAT_COMMAND = "uv run python scripts/check_hermes_agent_compat.py"
 PUBLIC_SAFETY_COMMAND = "uv run python scripts/check_public_safety.py"
 EXPECTED_PUBLIC_IGNORE_PATTERNS = [
@@ -783,12 +784,15 @@ def test_public_repo_ignore_rules_cover_local_artifacts() -> None:
     [
         ("ci.yml", "check"),
         ("hol-plugin-scanner.yml", "scan"),
-        ("publish.yml", "build"),
-        ("publish.yml", "publish"),
     ],
 )
 def test_workflows_run_on_blacksmith_runner(workflow_path: str, job_name: str) -> None:
     assert workflow_job(workflow_path, job_name)["runs-on"] == BLACKSMITH_RUNNER_LABEL
+
+
+@pytest.mark.parametrize("job_name", ["build", "publish"])
+def test_publish_workflow_runs_on_github_hosted_runner(job_name: str) -> None:
+    assert workflow_job("publish.yml", job_name)["runs-on"] == GITHUB_HOSTED_RUNNER_LABEL
 
 
 def test_actionlint_allows_blacksmith_runner_label() -> None:

@@ -11,6 +11,7 @@
 [![Python](https://img.shields.io/pypi/pyversions/hermes-xapi.svg)](https://pypi.org/project/hermes-xapi/)
 [![PyPI Status](https://img.shields.io/pypi/status/hermes-xapi.svg)](https://pypi.org/project/hermes-xapi/)
 [![Wheel](https://img.shields.io/pypi/wheel/hermes-xapi.svg)](https://pypi.org/project/hermes-xapi/#files)
+![skills.sh](https://skills.sh/b/twexapi-dev/hermes-xapi)
 [![Apify Actor](https://apify.com/actor-badge?actor=fastcrawler/tweet-x-twitter-scraper-0-05-1k-pay-per-result-v2)](https://apify.com/fastcrawler/tweet-x-twitter-scraper-0-05-1k-pay-per-result-v2)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -28,6 +29,7 @@ media automation for agents, or a native Hermes toolset for X/Twitter.
 
 - Published Python package with a native Hermes plugin entry point.
 - Installable from PyPI as `hermes-xapi`.
+- Discoverable as a public agent skill through `skills.sh` and `npx skills`.
 - 87 agent-callable TwexAPI endpoints generated from TwexAPI OpenAPI docs.
 - Risk-classified endpoint catalog with read, private-read, paid-bulk, and write
   routes.
@@ -42,6 +44,13 @@ media automation for agents, or a native Hermes toolset for X/Twitter.
 
 ## Install
 
+Install the public Agent Skill first when you want `skills.sh` discovery and
+install telemetry to count Hermes XAPI:
+
+```bash
+npx skills add twexapi-dev/hermes-xapi --skill hermes-xapi
+```
+
 Recommended Hermes plugin install:
 
 ```bash
@@ -53,6 +62,25 @@ installer can discover Hermes XAPI, but it may leave the plugin in the
 `not enabled` state until you run `hermes plugins enable hermes-xapi` or toggle
 it in the interactive `hermes plugins` UI. Use `hermes plugins list` when a
 fresh install does not show the `hermes-xapi` toolset.
+
+The `npx skills add` command installs the reusable agent instructions from
+[`skills/hermes-xapi/SKILL.md`](skills/hermes-xapi/SKILL.md). The
+`hermes plugins install` command enables the Hermes plugin tools
+(`xapi_explore`, `xapi_read`, and gated `xapi_action`). Use both commands when
+you want Hermes runtime tools and `skills.sh` catalog visibility.
+
+Verify the skills CLI can discover the repository before sharing a release:
+
+```bash
+npx skills add twexapi-dev/hermes-xapi --skill hermes-xapi --list
+```
+
+After real installs have been ingested by `skills.sh`, confirm catalog indexing
+with:
+
+```bash
+npx skills find hermes-xapi --owner twexapi-dev
+```
 
 Hermes will prompt for `TWEXAPI_KEY` during an interactive install and save it
 to `~/.hermes/.env`. In non-interactive installs the prompt is skipped; set the
@@ -103,6 +131,7 @@ runtime locally.
 | --- | --- |
 | PyPI | [`hermes-xapi`](https://pypi.org/project/hermes-xapi/) |
 | Repository guide | [`github.com/twexapi-dev/hermes-xapi#readme`](https://github.com/twexapi-dev/hermes-xapi#readme) |
+| skills.sh install | `npx skills add twexapi-dev/hermes-xapi --skill hermes-xapi` |
 | Context7 | [`context7.com/twexapi-dev/hermes-xapi`](https://context7.com/twexapi-dev/hermes-xapi) |
 | piwheels | [`hermes-xapi`](https://piwheels.org/project/hermes-xapi/) |
 | Latest release | [`v0.1.7`](https://github.com/twexapi-dev/hermes-xapi/releases/tag/v0.1.7) |

@@ -6,6 +6,7 @@
 [![CI](https://github.com/twexapi-dev/hermes-xapi/actions/workflows/ci.yml/badge.svg)](https://github.com/twexapi-dev/hermes-xapi/actions/workflows/ci.yml)
 [![Docs](https://img.shields.io/badge/docs-README-blue.svg)](https://github.com/twexapi-dev/hermes-xapi#readme)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg?url=https%3A%2F%2Fgithub.com%2Ftwexapi-dev%2Fhermes-xapi)](https://deepwiki.com/twexapi-dev/hermes-xapi)
+[![Context7](https://img.shields.io/badge/Context7-indexed-blue.svg)](https://context7.com/twexapi-dev/hermes-xapi)
 [![Agentic Ready](https://nothumansearch.ai/badge/twexapi.io.svg)](https://nothumansearch.ai/site/twexapi.io)
 [![PyPI](https://img.shields.io/pypi/v/hermes-xapi.svg)](https://pypi.org/project/hermes-xapi/)
 [![Python](https://img.shields.io/pypi/pyversions/hermes-xapi.svg)](https://pypi.org/project/hermes-xapi/)
@@ -133,6 +134,7 @@ runtime locally.
 | Repository guide | [`github.com/twexapi-dev/hermes-xapi#readme`](https://github.com/twexapi-dev/hermes-xapi#readme) |
 | skills.sh install | `npx skills add twexapi-dev/hermes-xapi --skill hermes-xapi` |
 | Context7 | [`context7.com/twexapi-dev/hermes-xapi`](https://context7.com/twexapi-dev/hermes-xapi) |
+| Context7 logs | [`context7.com/twexapi-dev/hermes-xapi?tab=logs`](https://context7.com/twexapi-dev/hermes-xapi?tab=logs) |
 | piwheels | [`hermes-xapi`](https://piwheels.org/project/hermes-xapi/) |
 | Latest release | [`v0.1.7`](https://github.com/twexapi-dev/hermes-xapi/releases/tag/v0.1.7) |
 | Supported Python | `>=3.11` |

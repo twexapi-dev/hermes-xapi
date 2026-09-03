@@ -27,9 +27,9 @@ CI-style smoke tests. The difference is where the Hermes runtime executes.
 - Set `TWEXAPI_KEY` only on the host that executes plugin tools.
 - Keep `HERMES_XAPI_ENABLE_ACTIONS=false` for research, monitoring, support,
   launch checks, and other unattended sessions.
-- Set `HERMES_XAPI_ENABLE_ACTIONS=true` only for sessions where posting,
-  replies, DMs, follows, likes, retweets, bookmarks, paid-bulk reads, or article
-  publishing are intended and approved.
+- Leave `HERMES_XAPI_ENABLE_ACTIONS=true` unset for normal public-read work.
+  Enable it only when an operator intentionally opts into a non-default gated
+  session.
 
 ## Common Mistakes
 

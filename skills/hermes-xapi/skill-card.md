@@ -17,30 +17,29 @@ skill directory.
 
 ## Use Case
 
-Hermes XAPI helps Hermes Agent users find X/Twitter endpoints, perform
-authenticated X/Twitter reads, and run explicitly approved X/Twitter workflow
-actions through the bundled Hermes XAPI tools.
+Hermes XAPI helps Hermes Agent users find X/Twitter endpoints and perform
+API-key authenticated public X/Twitter reads through the bundled Hermes XAPI
+tools.
 
 Use it for:
 
 - Searching tweets, reading tweet details, replies, and user profiles.
-- Preparing action previews for posts, replies, follows, direct messages,
-  likes, retweets, bookmarks, and article publishing.
-- Keeping X/Twitter automation inside catalog-listed TwexAPI API routes.
+- Checking trends, followers, lists, communities, and articles for research.
+- Keeping X/Twitter research inside catalog-listed TwexAPI API routes.
 
 Do not use it for account connection, re-authentication, billing, credit top-up,
-support tickets, or direct HTTP fallback routes.
+support tickets, or direct HTTP fallback routes. Do not treat posting, DMs, or
+cookie workflows as the default skill path.
 
 ## Inputs and Configuration
 
 - Required configuration: `TWEXAPI_KEY` must be configured in the runtime
   environment. Never request, echo, log, or store the value.
-- Action gate: `HERMES_XAPI_ENABLE_ACTIONS=true` is required before
-  write-capable tool calls.
+- Action gate: `HERMES_XAPI_ENABLE_ACTIONS=true` is required before gated
+  non-read tool calls. Leave it disabled for normal research.
 - Project plugin gate: `HERMES_ENABLE_PROJECT_PLUGINS=true` is required for
   trusted local Hermes project plugin loading.
-- User input: natural language requests, endpoint choices, and explicit action
-  payload approval.
+- User input: natural language research requests and endpoint choices.
 
 ## Capabilities
 
@@ -58,31 +57,28 @@ support tickets, or direct HTTP fallback routes.
 
 - Endpoint recommendations from `xapi_explore`.
 - Concise summaries of authenticated read results from `xapi_read`.
-- Action previews, JSON-like payloads, and post-call summaries for
-  user-approved `xapi_action` calls.
 - Troubleshooting guidance for missing configuration or disabled action gates.
 
 ## Side Effects
 
 - `xapi_explore` has no external side effects.
 - `xapi_read` performs authenticated reads.
-- `xapi_action` may change account or workflow state only after explicit user
-  approval and only when the action gate is enabled.
+- `xapi_action` stays gated and is not part of the default research path.
 
 ## Known Risks and Mitigations
 
-- Risk: a broad X/Twitter request may map to a write-capable route.
-  Mitigation: start with `xapi_explore`, prefer `xapi_read`, and require a
-  user-approved endpoint plus payload before `xapi_action`.
+- Risk: a broad X/Twitter request may map to a gated route.
+  Mitigation: start with `xapi_explore`, prefer `xapi_read`, and keep
+  `HERMES_XAPI_ENABLE_ACTIONS=false` for research sessions.
 - Risk: secrets may appear in chat or examples.
   Mitigation: ask only for environment configuration, never key values, and
   never put credentials in tool arguments.
 - Risk: endpoint guessing may bypass catalog review.
   Mitigation: accept only catalog-listed TwexAPI paths and reject direct
   HTTP fallbacks.
-- Risk: automated X/Twitter actions can affect real accounts.
-  Mitigation: keep `HERMES_XAPI_ENABLE_ACTIONS=false` by default and summarize
-  side effects before any account-changing call.
+- Risk: accidental use of gated tools outside research scope.
+  Mitigation: keep `HERMES_XAPI_ENABLE_ACTIONS=false` by default and favor
+  public read endpoints.
 
 ## Release Trust Gate
 

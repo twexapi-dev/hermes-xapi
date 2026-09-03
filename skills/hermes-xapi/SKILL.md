@@ -1,7 +1,7 @@
 ---
 name: hermes-xapi
 description: >-
-  Uses TwexAPI from Hermes Agent for X research, monitoring, and approval-gated actions. Use when the user requests X data or an approved X action. Trigger with "search X", "monitor X", "post tweet", or "X trends".
+  Uses TwexAPI from Hermes Agent for X research, public reads, and trend monitoring. Use when the user requests X data or catalog discovery. Trigger with "search X", "monitor X", "read profile", or "X trends".
 allowed-tools:
   - xapi_explore
   - xapi_read
@@ -10,7 +10,7 @@ version: 0.1.7
 author: Burak Bayır (@kriptoburak), TwexAPI
 license: MIT
 compatibility: Requires Hermes Agent plugin support and TwexAPI API access.
-argument-hint: "[X task, endpoint, or approved action]"
+argument-hint: "[X task, endpoint, or research goal]"
 tags:
   - hermes-agent
   - twexapi
@@ -39,7 +39,7 @@ capabilities:
     justification: Optional Hermes CLI checks are used only for installation and registry diagnostics.
   network:
     required: true
-    justification: Hermes XAPI tools call TwexAPI API routes for X/Twitter reads and approved actions.
+    justification: Hermes XAPI tools call TwexAPI API routes for X/Twitter public reads and research.
   files:
     required: false
     justification: Normal use does not require local file reads or writes.
@@ -49,7 +49,7 @@ capabilities:
       - TWEXAPI_KEY
       - HERMES_XAPI_ENABLE_ACTIONS
       - HERMES_ENABLE_PROJECT_PLUGINS
-    justification: Runtime configuration controls authenticated reads, gated actions, and trusted project-local plugin loading.
+    justification: Runtime configuration controls authenticated reads, gated tools, and trusted project-local plugin loading.
   mcp:
     required: false
     justification: No MCP server access is required.
@@ -63,28 +63,27 @@ capabilities:
 
 ## Overview
 
-Hermes XAPI solves X research and automation tasks without direct HTTP fallbacks
-or guessed endpoints. It discovers catalog-listed TwexAPI routes, performs
-authenticated reads, and keeps write-like or private operations behind an
-explicit environment gate and user approval.
+Hermes XAPI solves X research tasks without direct HTTP fallbacks or guessed
+endpoints. It discovers catalog-listed TwexAPI routes and performs API-key
+authenticated public reads for search, profiles, replies, followers, trends,
+lists, communities, and articles.
 
-Use the skill for read-first workflows. Enable action tooling only for a named
-operation whose endpoint, payload, account, and side effects the user approves.
+Prefer read-first workflows. Keep `xapi_action` disabled unless the operator
+intentionally enables it for a non-default session.
 
 ## When to Use
 
-Use this skill for Hermes Agent sessions that need X/Twitter data or controlled
-X actions through the Hermes XAPI plugin.
+Use this skill for Hermes Agent sessions that need X/Twitter public data through
+the Hermes XAPI plugin.
 
 Use this skill especially for social listening, launch monitoring, support
-triage, creator research, brand research, giveaway audits, community audits,
-and controlled publishing workflows.
+triage research, creator research, brand research, giveaway audits, and
+community audits.
 
 Use `xapi_explore` first when the user asks for a capability, endpoint, route,
 or TwexAPI API surface. Use `xapi_read` only after a read-only endpoint is known.
-Use `xapi_action` only after the user requests a write, private read, monitor,
-webhook, extraction job, giveaway draw, or media operation that requires action
-permissions.
+Do not steer the user toward posting, DMs, or account mutations; stay on
+catalog-listed public reads.
 
 ## Prerequisites
 
@@ -92,8 +91,8 @@ permissions.
   `hermes plugins install twexapi-dev/hermes-xapi --enable`.
 - Configure `TWEXAPI_KEY` on the Hermes runtime host for authenticated reads.
   `xapi_explore` remains available without the key or network access.
-- Leave `HERMES_XAPI_ENABLE_ACTIONS` unset or false unless the workflow needs
-  an approved write-like or private operation.
+- Leave `HERMES_XAPI_ENABLE_ACTIONS` unset or false for normal research and
+  monitoring sessions.
 - For project-local plugins, set `HERMES_ENABLE_PROJECT_PLUGINS=true` only in a
   trusted repository.
 - Restart a gateway after environment changes and start a new session. Active
@@ -122,8 +121,8 @@ permissions.
 2. Use `xapi_explore` to find the catalog endpoint and method.
 3. Use `xapi_read` for public read-only endpoints after the API key is
    configured.
-4. Before `xapi_action`, state the exact endpoint, payload, account, reason,
-   and expected side effects, then get explicit approval.
+4. Prefer `xapi_read`. If `xapi_action` is unavailable, explain that action tools
+   stay gated by `HERMES_XAPI_ENABLE_ACTIONS=true` and continue with reads.
 5. Verify the tool response. Report policy, authentication, validation, or
    account errors without retrying through alternate routes.
 
@@ -133,9 +132,9 @@ permissions.
   query.
 - IF the endpoint method is `GET` and the catalog does not mark it as an
   action, THEN call `xapi_read`.
-- IF the endpoint method is not `GET`, or the route touches private account
-  state, THEN call `xapi_action` only when actions are enabled and the user has
-  approved the operation.
+- IF the task needs private or state-changing routes, THEN explain that this
+  skill defaults to public API-key reads and keep `xapi_action` disabled unless
+  the operator already enabled it.
 - IF `xapi_action` is unavailable or disabled, THEN explain that action tools
   are intentionally gated by `HERMES_XAPI_ENABLE_ACTIONS=true`.
 - IF `TWEXAPI_KEY` is missing, THEN ask the user to set it in the Hermes
@@ -146,8 +145,7 @@ permissions.
   remind the user that Hermes requires `HERMES_ENABLE_PROJECT_PLUGINS=true` for
   trusted repositories.
 - IF the task is unattended, scheduled, gateway-driven, or cron-driven, THEN
-  prefer `xapi_read` and keep `xapi_action` disabled unless the workflow has a
-  clear approval step.
+  prefer `xapi_read` and keep `xapi_action` disabled.
 - IF the user is in Hermes Desktop with a remote gateway profile, THEN remind
   them that Hermes XAPI must be installed, enabled, and configured on the
   remote Hermes host where plugin tools execute.
@@ -157,44 +155,42 @@ permissions.
 
 ## Safety
 
-- Never ask for or reveal API keys, signing keys, passwords, cookies, or TOTP secrets.
+- Never ask for or reveal API keys, signing keys, passwords, or TOTP secrets.
 - Never pass credentials in tool arguments.
 - Use only catalog-listed TwexAPI endpoints.
 - Copied endpoint URLs are accepted only when they resolve to catalog-listed paths.
 - Do not use account connection, re-authentication, API key, billing, credit top-up, or support-ticket endpoints.
-- For posting, deleting, following, DMs, profile changes, likes, retweets,
-  bookmarks, and article publishing, summarize the action before calling
-  `xapi_action`.
+- Default to public reads. Do not instruct agents to post, send DMs, or mutate
+  accounts as part of normal research workflows.
 
 ## Known Risks and Mitigations
 
-- Risk: A broad X/Twitter request may map to a write-capable route.
-  Mitigation: Start with `xapi_explore`, prefer `xapi_read`, and require a
-  user-approved endpoint plus payload before `xapi_action`.
+- Risk: A broad X/Twitter request may map to a gated route.
+  Mitigation: Start with `xapi_explore`, prefer `xapi_read`, and keep
+  `HERMES_XAPI_ENABLE_ACTIONS=false` for research sessions.
 - Risk: Secrets may be pasted into chat or examples.
   Mitigation: Ask only for environment configuration, never for key values, and
   never put credentials in tool arguments.
 - Risk: Endpoint guessing may bypass catalog review.
   Mitigation: Accept only catalog-listed TwexAPI paths and reject direct
   HTTP fallbacks.
-- Risk: Automated X/Twitter actions can affect real accounts.
-  Mitigation: Keep `HERMES_XAPI_ENABLE_ACTIONS=false` by default and summarize
-  side effects before any account-changing call.
+- Risk: Accidental use of gated tools outside research scope.
+  Mitigation: Keep `HERMES_XAPI_ENABLE_ACTIONS=false` by default and favor
+  public read endpoints.
 
 ## Output
 
-- Output type: endpoint selection, API-result summaries, action previews, and
+- Output type: endpoint selection, API-result summaries, research notes, and
   troubleshooting guidance.
 - Output format: concise Markdown for humans and JSON-like tool payloads for
   Hermes XAPI calls.
-- Side effects: `xapi_explore` has no external side effects, `xapi_read`
-  performs authenticated reads, and `xapi_action` may change account or
-  workflow state only after explicit approval.
+- Side effects: `xapi_explore` has no external side effects and `xapi_read`
+  performs authenticated reads. `xapi_action` remains gated and is not part of
+  the default research path.
 
 ## Error Handling
 
-Use the narrowest recovery step that preserves the read-first and action-gated
-contract:
+Use the narrowest recovery step that preserves the read-first contract:
 
 - Missing tool: confirm the plugin is enabled, then run `hermes tools list`.
 - Missing API key: configure `TWEXAPI_KEY` on the runtime host without pasting
@@ -202,8 +198,8 @@ contract:
   `hermes gateway restart` and start a new gateway session.
 - Unknown endpoint: call `xapi_explore` again. Never guess paths or create a
   direct HTTP fallback.
-- Disabled action: keep the action blocked unless the user requested it and
-  `HERMES_XAPI_ENABLE_ACTIONS=true` is intentionally configured.
+- Disabled action: keep the action blocked and continue with public reads unless
+  the operator intentionally configured `HERMES_XAPI_ENABLE_ACTIONS=true`.
 - Policy, authentication, validation, or account error: return the sanitized
   failure and corrective step. Do not retry through another route.
 - Missing slash command: verify it in an active Hermes session or plugin
@@ -229,17 +225,13 @@ Then call:
 Run `/xtrends` in an active Hermes session. Use `xapi_explore` when the task
 needs a catalog endpoint or structured response instead of the slash command.
 
-**Example: Post a tweet**
+**Example: Search public tweets**
 
 ```json
-{"query":"post tweet","include_actions":true}
+{"query":"advanced search","method":"GET"}
 ```
 
-Then call `xapi_action` with:
-
-```json
-{"path":"/twitter/tweets/create","method":"POST","body":{"account":"@example","text":"Hello from Hermes XAPI"},"reason":"Post the user-approved tweet."}
-```
+Then call `xapi_read` with the catalog-listed search path and a bounded query.
 
 ## Testing
 

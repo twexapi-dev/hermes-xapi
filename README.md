@@ -17,14 +17,14 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Native [Hermes Agent](https://github.com/NousResearch/hermes-agent) plugin for
-X automation through [TwexAPI](https://twexapi.io).
+X research and public reads through [TwexAPI](https://twexapi.io).
 
-Hermes XAPI brings X search, account reads, profile lookups, trends, followers,
-replies, articles, DMs, tweet posting, likes, retweets, follows, and account
-status checks into Hermes as structured tools.
+Hermes XAPI brings X search, profile lookups, trends, followers, replies,
+articles, lists, communities, and account status checks into Hermes as
+structured tools. Default agent workflows use API-key public reads.
 
-Use it when you need a Hermes Agent Twitter plugin, Hermes X automation, social
-media automation for agents, or a native Hermes toolset for X/Twitter.
+Use it when you need a Hermes Agent Twitter plugin, Hermes X research tooling,
+or a native Hermes toolset for public X/Twitter data.
 
 ## Highlights
 
@@ -32,11 +32,10 @@ media automation for agents, or a native Hermes toolset for X/Twitter.
 - Installable from PyPI as `hermes-xapi`.
 - Discoverable as a public agent skill through `skills.sh` and `npx skills`.
 - 87 agent-callable TwexAPI endpoints generated from TwexAPI OpenAPI docs.
-- Risk-classified endpoint catalog with read, private-read, paid-bulk, and write
-  routes.
+- Risk-classified endpoint catalog with a read-first agent path.
 - Read and action tools are split for least-privilege operation.
 - Action endpoints are disabled by default.
-- Bundled Hermes skill for agent-facing usage guidance.
+- Bundled Hermes skill for agent-facing research guidance.
 - Slash commands for account status and trends.
 - Current guidance for Hermes Agent v0.16.0 Desktop, remote gateway, and
   dashboard credential workflows.
@@ -180,10 +179,10 @@ they pick up the new values.
 Hermes XAPI never accepts credentials through tool arguments. Auth is read from
 environment variables and injected by the plugin at request time.
 
-The plugin blocks cookie/token helper routes, engagement-purchase routes,
-auto-cookie posting, profile mutation, list creation, and sentiment routes from
-the agent catalog. Private reads, paid-bulk endpoints, and write-like endpoints
-go through `xapi_action`, which is hidden unless
+Never commit API keys, cookies, tokens, or other credentials. The plugin blocks
+cookie/token helper routes, engagement-purchase routes, auto-cookie posting,
+profile mutation, list creation, and sentiment routes from the agent catalog.
+Gated endpoints stay behind `xapi_action`, which is hidden unless
 `HERMES_XAPI_ENABLE_ACTIONS=true`.
 
 ## Tools
@@ -192,51 +191,49 @@ go through `xapi_action`, which is hidden unless
 | --- | --- |
 | `xapi_explore` | Search the bundled TwexAPI endpoint catalog. No API call. |
 | `xapi_read` | Call catalog-listed read-only endpoints. |
-| `xapi_action` | Call write-like or private endpoints. Disabled by default. |
+| `xapi_action` | Gated tool. Disabled by default; not part of normal research flows. |
 
-Use `xapi_explore` first, then call `xapi_read` or `xapi_action` with a
-concrete TwexAPI path.
+Use `xapi_explore` first, then call `xapi_read` with a concrete TwexAPI path.
 Copied endpoint URLs are accepted, but Hermes XAPI matches only catalog-listed
 paths.
 
 ## Hermes Agent Workflows
 
 Hermes XAPI is best used as the X context layer for Hermes Agent workflows that
-need current public signal, authenticated account context, or approval-gated
-account actions:
+need current public signal through API-key reads:
 
 | Workflow | Recommended Path |
 | --- | --- |
-| Social listening | Use `xapi_explore` to find profile, trend, topic, search, and reply routes; use `xapi_read` only for no-approval reads. |
+| Social listening | Use `xapi_explore` to find profile, trend, topic, search, and reply routes; use `xapi_read` for public reads. |
 | Launch monitoring | Keep `xapi_action` disabled, schedule Hermes cron sessions around read-only trend, topic, profile, and status checks. |
-| Support triage | Read public mentions and user timelines, summarize issues in Hermes, then hand off account-changing responses for explicit approval. |
+| Support triage | Read public mentions and user timelines, then summarize issues in Hermes for human follow-up. |
 | Creator or brand research | Combine X search, user profile, follower, article, and trend reads before drafting content or campaign briefs. |
-| Community audits | Use read routes for tweet, reply, follower, list, community, and article evidence before any action route. |
-| Controlled publishing | Enable `HERMES_XAPI_ENABLE_ACTIONS=true` only in sessions that require posting, DMs, follows, likes, retweets, bookmarks, or article publishing. |
-| Desktop operator sessions | Use Hermes Desktop for interactive review, then keep action calls explicit and approval-gated. |
+| Community audits | Use read routes for tweet, reply, follower, list, community, and article evidence. |
+| Desktop operator sessions | Use Hermes Desktop for interactive research and review. |
 | Remote gateway teams | Install Hermes XAPI and set `TWEXAPI_KEY` on the remote gateway host, then connect Desktop profiles to that host. |
 | Dashboard-administered agents | Use the dashboard for gateway and credential operations, but keep Hermes XAPI secrets in the runtime environment. |
 
 For marketing or user education, position Hermes XAPI as a native Hermes Agent
-plugin, not a generic API wrapper: it ships a PyPI entry point, a `plugin.yaml`
-manifest with interactive secret prompts, slash commands for quick diagnostics,
-and a bundled skill registered through Hermes' plugin skill system.
+plugin for public X research, not a generic API wrapper: it ships a PyPI entry
+point, a `plugin.yaml` manifest with interactive secret prompts, slash commands
+for quick diagnostics, and a bundled skill registered through Hermes' plugin
+skill system.
 
 ## Hermes Runtime Fit
 
 Hermes XAPI registers a dedicated `hermes-xapi` plugin toolset. Hermes can
 show and manage those tools through its normal `hermes tools` and platform
-toolset flows, so teams can keep X automation available only where it belongs.
-Current Hermes Agent releases discover third-party plugins but do not execute
-them until they are enabled in `plugins.enabled`, through `hermes plugins enable`,
-or by installing with `--enable`. This is expected safety behavior for user and
-PyPI entry-point plugins.
+toolset flows, so teams can keep X research tools available only where they
+belong. Current Hermes Agent releases discover third-party plugins but do not
+execute them until they are enabled in `plugins.enabled`, through
+`hermes plugins enable`, or by installing with `--enable`. This is expected
+safety behavior for user and PyPI entry-point plugins.
 
 Hermes Agent v0.16.0 expands the surfaces where the same toolset can appear:
 the native Desktop app, remote gateway profiles, the web dashboard, the TUI,
 and the CLI can all route work to the enabled runtime. Hermes XAPI does not
 need a different plugin entry point for those surfaces. It needs the same
-enabled plugin, the same runtime environment, and the same read/action split.
+enabled plugin, the same runtime environment, and the same read-first split.
 
 The v0.16.0 Desktop command palette surfaces skills and quick-command slash
 commands. Treat `/xstatus` and `/xtrends` as interactive runtime commands for
@@ -254,10 +251,8 @@ requires a TTY. In current Hermes Agent releases, `hermes tools list` reports pl
 not every individual plugin tool name.
 
 Use the read-only path for social listening, trend research, public profile
-checks, community audits, and draft planning. Keep `HERMES_XAPI_ENABLE_ACTIONS=false`
-for unattended cron or gateway sessions unless the workflow has an explicit
-approval step for posting, DMs, follows, likes, retweets, bookmarks, article
-publishing, or other account actions.
+checks, community audits, and draft planning. Keep
+`HERMES_XAPI_ENABLE_ACTIONS=false` for unattended cron or gateway sessions.
 
 Runtime smoke test:
 
@@ -342,3 +337,6 @@ Recommended topics:
 `x-automation`, `twexapi`, `tweet`, `automation`, `social-media`,
 `social-media-automation`, `ai-agent`, `mcp`, `agent-tools`, `twitter-api`,
 `twitter-automation`, `x-twitter`, `social-media-api`, `agent-skill`, `python`
+
+Position public marketing around API-key public reads, search, profiles,
+trends, and research. Do not lead with posting, DMs, or cookie-based workflows.

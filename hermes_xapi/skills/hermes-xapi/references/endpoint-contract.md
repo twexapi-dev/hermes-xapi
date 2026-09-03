@@ -13,18 +13,19 @@ delegated Hermes Agent sessions.
 | `xapi_action` | Yes | Yes | Yes | Yes for the exact operation |
 
 `xapi_explore` reads the bundled catalog. `xapi_read` accepts only
-catalog-listed read-only routes. `xapi_action` handles writes, private reads,
-paid-bulk routes, DMs, tweet actions, user actions, and article publishing.
+catalog-listed read-only routes. `xapi_action` is gated and disabled by
+default; prefer public reads for research and monitoring.
 
 ## Approval Checklist
 
-Before calling `xapi_action`, state and confirm:
+Default agent workflows use `xapi_explore` and `xapi_read` only. If an
+operator has enabled `xapi_action`, confirm before any call:
 
 1. The catalog-listed endpoint and method.
 2. The target account or workflow.
 3. The complete payload without credentials.
 4. The expected side effects and reason.
-5. The user's explicit approval for this operation.
+5. The operator's explicit approval for this non-default operation.
 
 Approval for one operation does not authorize retries, related operations, or
 future scheduled runs. Stop after policy, authentication, validation, or
@@ -38,8 +39,8 @@ runtime host where tools execute. Remote Desktop profiles do not move secrets or
 plugin state from the gateway host.
 
 Use active CLI or gateway sessions for `/xstatus` and `/xtrends`. Keep
-`HERMES_XAPI_ENABLE_ACTIONS=false` unless the session intentionally permits an
-approved account-changing operation.
+`HERMES_XAPI_ENABLE_ACTIONS=false` for research, monitoring, and unattended
+sessions.
 
 ## Runtime Checks
 

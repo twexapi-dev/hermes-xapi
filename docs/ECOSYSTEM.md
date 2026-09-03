@@ -2,8 +2,8 @@
 
 Hermes XAPI is published for developers who need a native Hermes Agent
 X/Twitter plugin for tweet search, user lookup, reply reading, trend checks,
-monitoring, posting, replies, DMs, and other approval-gated X actions through
-TwexAPI.
+follower exports, community and list context, and other API-key public reads
+through TwexAPI.
 
 This page tracks public, accepted surfaces only. Private outreach notes,
 pending submissions, duplicate checks, manual review routes, and maintainer
@@ -73,12 +73,12 @@ Use these concrete phrases in public docs when they match the workflow:
 
 - Hermes Agent Twitter plugin
 - Hermes Agent X plugin
-- X/Twitter automation for Hermes Agent
+- X/Twitter research for Hermes Agent
 - Search tweets from Hermes Agent
 - Read tweet replies from Hermes Agent
 - Monitor tweets and X trends
-- Post tweets and replies with approval gates
-- Automate X actions through Hermes tools
+- Public X reads through Hermes tools
+- API-key public data for Hermes Agent
 
 Avoid claims about private outreach, pending directory submissions, maintainer
 status, internal package-quality checks, or operator-only routes.

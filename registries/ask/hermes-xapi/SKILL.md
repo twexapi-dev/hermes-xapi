@@ -22,7 +22,7 @@ capabilities:
     justification: Optional Hermes CLI checks are used only for installation and registry diagnostics.
   network:
     required: true
-    justification: Hermes XAPI tools call TwexAPI API routes for X/Twitter reads and approved actions.
+    justification: Hermes XAPI tools call TwexAPI API routes for X/Twitter public reads and research.
   files:
     required: false
     justification: Normal use does not require local file reads or writes.
@@ -32,7 +32,7 @@ capabilities:
       - TWEXAPI_KEY
       - HERMES_XAPI_ENABLE_ACTIONS
       - HERMES_ENABLE_PROJECT_PLUGINS
-    justification: Runtime configuration controls authenticated reads, gated actions, and trusted project-local plugin loading.
+    justification: Runtime configuration controls authenticated reads, gated tools, and trusted project-local plugin loading.
   mcp:
     required: false
     justification: No MCP server access is required.
@@ -45,7 +45,7 @@ capabilities:
 # Hermes XAPI
 
 Use this ASK-compatible wrapper when a Hermes Agent user needs the native Hermes
-XAPI plugin for X/Twitter automation through TwexAPI.
+XAPI plugin for X/Twitter research and public reads through TwexAPI.
 
 ## Install
 
@@ -57,7 +57,7 @@ hermes tools list
 ```
 
 Set `TWEXAPI_KEY` in the Hermes runtime environment before using authenticated
-read or action tools. Do not paste the key into chat.
+read tools. Do not paste the key into chat.
 
 ## When to Use
 
@@ -68,24 +68,24 @@ Use Hermes XAPI for:
 - look up users and public profiles
 - track trends, public profiles, and community/list context
 - export followers and following lists
-- post tweets/replies, send DMs, or automate X actions after explicit approval
+- research briefs built from public X signal
 
 ## Tool Flow
 
 1. Use `xapi_explore` to find the catalog endpoint.
 2. Use `xapi_read` for public read-only endpoints.
-3. Use `xapi_action` only for approved writes, private reads, paid-bulk routes,
-   DMs, tweet actions, user actions, or article publishing.
+3. Keep `xapi_action` gated behind `HERMES_XAPI_ENABLE_ACTIONS=true`. Prefer
+   public reads for research and monitoring.
 
 ## Safety
 
-- Never ask for API keys, passwords, cookies, or TOTP secrets.
+- Never ask for API keys, passwords, or TOTP secrets.
 - Never pass credentials in tool arguments.
 - Use only catalog-listed TwexAPI endpoints.
 - Copied endpoint URLs are accepted only when they resolve to catalog-listed paths.
-- Keep write actions gated behind `HERMES_XAPI_ENABLE_ACTIONS=true`.
-- Summarize the exact action before posting, replying, sending DMs, or changing
-  account state.
+- Keep write-capable tools gated behind `HERMES_XAPI_ENABLE_ACTIONS=true`.
+- Do not instruct agents to post, send DMs, or mutate accounts as the default
+  workflow.
 
 ## Permissions and Trust
 
@@ -98,9 +98,8 @@ Use Hermes XAPI for:
 - Environment scope: check only whether `TWEXAPI_KEY`,
   `HERMES_XAPI_ENABLE_ACTIONS`, and `HERMES_ENABLE_PROJECT_PLUGINS` are
   configured. Never request or echo values.
-- Output: return concise Markdown summaries, action previews, or JSON-like tool
-  payloads. `xapi_action` may change account or workflow state only after
-  explicit approval.
+- Output: return concise Markdown summaries or JSON-like tool payloads for
+  public reads. Keep gated tools disabled for normal research sessions.
 - Release gate: do not present this skill as NVIDIA-verified unless the release
   includes a clean SkillSpector review, `skill-card.md`, Tier-3 eval data,
   `BENCHMARK.md`, `skill.oms.sig`, and signature verification instructions.

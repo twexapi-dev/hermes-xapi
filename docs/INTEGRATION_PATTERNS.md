@@ -1,34 +1,34 @@
 # Integration Patterns
 
-Use this guide when deciding how Hermes XAPI fits with browser-cookie skills,
+Use this guide when deciding how Hermes XAPI fits with other X/Twitter skills,
 official API examples, OpenClaw skills, MCP servers, and catalog listings. The
-goal is to keep Hermes XAPI positioned as the Hermes Agent runtime path, not as
-a replacement for every local X/Twitter tool.
+goal is to keep Hermes XAPI positioned as the Hermes Agent runtime path for
+API-key public reads, not as a replacement for every local X/Twitter tool.
 
 ## Positioning
 
-Hermes XAPI is the native Hermes Agent plugin for X/Twitter work through
+Hermes XAPI is the native Hermes Agent plugin for X/Twitter research through
 TwexAPI. It is best when the workflow needs:
 
 - a Hermes plugin entry point from PyPI or GitHub
 - `xapi_explore` catalog discovery before tool calls
-- API-key managed reads through `xapi_read`
-- explicit action gating through `xapi_action`
+- API-key managed public reads through `xapi_read`
 - the same toolset across Desktop, remote gateway, dashboard, TUI, CLI, cron,
   and CI smoke-test surfaces
 
-Keep local browser-cookie skills as the local account/session path. Keep direct
-official API examples as implementation references. Keep Hermes XAPI as the
-managed Hermes Agent path for reads, monitoring, support triage, research,
-launch checks, and approval-gated account actions.
+Keep local browser-session skills as optional local tooling when a workflow
+truly needs a laptop browser session. Keep direct official API examples as
+implementation references. Keep Hermes XAPI as the managed Hermes Agent path
+for public reads, monitoring, support triage research, launch checks, and
+research briefs.
 
 ## Complementary Routes
 
-Browser-cookie skills:
+Browser-session skills:
 Keep them for local browser sessions, media download, archive jobs, and
 account-specific local state. Add Hermes XAPI when the workflow should run from
 Hermes Desktop, a remote gateway, a dashboard-managed runtime, or unattended
-cron without relying on a laptop Chrome session.
+cron with API-key public reads instead of a laptop Chrome session.
 
 Official X API examples:
 Keep them for direct OAuth or API implementation details. Add Hermes XAPI when
@@ -37,7 +37,7 @@ the agent should avoid raw OAuth handling and call managed Hermes tools through
 
 OpenClaw skills:
 Keep them for OpenClaw-native browser workflows and SKILL.md discovery. Add
-Hermes XAPI when a Hermes Agent user needs the same X/Twitter read or action
+Hermes XAPI when a Hermes Agent user needs the same X/Twitter public-read
 capability from a Hermes runtime.
 
 MCP servers:
@@ -61,7 +61,7 @@ source gates are present and target duplicate checks are clean.
 
 Skill catalogs and awesome lists:
 Keep them for discovery and comparison. Add Hermes XAPI when the listing
-accepts Hermes Agent plugins, X/Twitter skills, social automation tools, or
+accepts Hermes Agent plugins, X/Twitter skills, social research tools, or
 optional backend notes. Before opening a public submission, use
 `docs/SUBMISSION_READINESS.md` to check fit, duplicates, wording, validation,
 and public-safety requirements.
@@ -107,12 +107,10 @@ incompatible license still blocks outreach.
   read-safe.
 - Copied endpoint URLs are fine, but Hermes XAPI matches only catalog-listed
   paths.
-- Use `xapi_action` only when the user asks for posting, replies, DMs,
-  follows, likes, retweets, bookmarks, paid-bulk reads, or article publishing
-  and actions are explicitly enabled.
 - Keep `HERMES_XAPI_ENABLE_ACTIONS=false` for cron, gateway, research,
-  monitoring, support triage, and other unattended sessions unless the workflow
-  includes an explicit approval step.
+  monitoring, support triage, and other unattended sessions.
+- Prefer public reads. Do not position posting, DMs, or cookie workflows as the
+  default Hermes XAPI path.
 
 ## Outreach Copy
 
@@ -121,9 +119,9 @@ Use wording like:
 - optional Hermes Agent backend for X/Twitter reads
 - managed Hermes Agent X/Twitter toolset
 - Hermes Desktop and remote gateway compatible X/Twitter plugin
-- read-only by default, with explicit action gating
-- complementary to local browser-cookie workflows
+- read-only by default with API-key public reads
+- complementary to local research or browser-session workflows
 
 Avoid wording that implies Hermes XAPI replaces a target project, fixes a
-target bug, bypasses platform rules, or removes the need for user approval on
-account actions.
+target bug, bypasses platform rules, or depends on cookies for normal agent
+reads.

@@ -35,7 +35,7 @@ def test_build_skips_twexapi_agent_prohibited_endpoints(tmp_path: Path) -> None:
         tmp_path,
         {
             "/twitter/{auth_token}/cookie": {"get": {"summary": "Get cookie"}},
-            "/twitter/action": {"post": {"summary": "Purchase engagement"}},
+            "/twitter/action": {"post": {"summary": "Prohibited route"}},
             "/twitter/profile": {"post": {"summary": "Modify profile"}},
             "/twitter/{screen_name}/about": {
                 "get": {"summary": "Get profile", "tags": ["Twitter User About"]}

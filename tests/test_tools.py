@@ -311,7 +311,7 @@ def test_action_blocks_prohibited_twexapi_endpoint(monkeypatch: pytest.MonkeyPat
                 "method": "POST",
                 "path": "/twitter/action",
                 "body": {"quantity": 100},
-                "reason": "engagement purchase",
+                "reason": "prohibited route",
             }
         )
     )

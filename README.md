@@ -180,8 +180,8 @@ Hermes XAPI never accepts credentials through tool arguments. Auth is read from
 environment variables and injected by the plugin at request time.
 
 Never commit API keys, cookies, tokens, or other credentials. The plugin blocks
-cookie/token helper routes, engagement-purchase routes, auto-cookie posting,
-profile mutation, list creation, and sentiment routes from the agent catalog.
+credential-helper routes, profile mutation, list creation, and sentiment routes
+from the agent catalog.
 Gated endpoints stay behind `xapi_action`, which is hidden unless
 `HERMES_XAPI_ENABLE_ACTIONS=true`.
 
